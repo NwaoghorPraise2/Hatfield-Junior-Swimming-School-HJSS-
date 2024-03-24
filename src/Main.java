@@ -1,5 +1,7 @@
+import view.HJSSView;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Getting Started");
+        new HJSSView().registerUser();
     }
 }
