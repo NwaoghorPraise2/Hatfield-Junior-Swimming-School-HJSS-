@@ -28,6 +28,12 @@ public class LearnerInputValidator {
         if (dateOfBirth == null || dateOfBirth.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("Invalid date of birth");
         }
+
+        int age = LocalDate.now().getYear() - dateOfBirth.getYear();
+        if (age <= 4 || age >= 11) {
+            throw new IllegalArgumentException("You are age is restricted from this school.");
+        }
+
     }
 
     public void isValidUKPhoneNumber(String emergencyContact) {
@@ -39,12 +45,12 @@ public class LearnerInputValidator {
         Pattern ukPhoneNumberPattern = Pattern.compile(regexPattern);
         Matcher matcher = ukPhoneNumberPattern.matcher(emergencyContact);
         if (!matcher.matches()) {
-            throw new IllegalArgumentException("Invalid phone number");
+            throw new IllegalArgumentException("The number you entered is not a valid Uk number");
         }
     }
     public void isValidGradeLevel(int gradeLevel) {
         if (gradeLevel < 1 || gradeLevel > 5) {
-            throw new IllegalArgumentException("Invalid grade level");
+            throw new IllegalArgumentException("Invalid grade level: We only have Grade(1 to 5).");
         }
     }
 }
