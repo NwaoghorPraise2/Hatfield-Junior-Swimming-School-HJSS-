@@ -31,7 +31,7 @@ public class LearnerInputValidator {
 
         int age = LocalDate.now().getYear() - dateOfBirth.getYear();
         if (age <= 4 || age >= 11) {
-            throw new IllegalArgumentException("You are age is restricted from this school.");
+            throw new IllegalArgumentException("Your age is restricted from this service😇.");
         }
 
     }

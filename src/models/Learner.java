@@ -81,5 +81,15 @@ public class Learner {
         this.currentGradeLevel = currentGradeLevel;
     }
 
-
+    @Override
+    public String toString() {
+        return "Learners{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", gender='" + gender + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", emergencyContact='" + emergencyContact + '\'' +
+                ", currentGradeLevel=" + currentGradeLevel +
+                '}';
+    }
 }

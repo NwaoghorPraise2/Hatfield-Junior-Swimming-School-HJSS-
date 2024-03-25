@@ -22,7 +22,9 @@ public class HJSSView {
                     +-----------------------------------------------------+
                     1. Register a learner
                     2. Exit
+                    3. View all learners
                     +-----------------------------------------------------+
+                    Enter your choice: 
                     """);
             int choice;
             try {
@@ -40,6 +42,7 @@ public class HJSSView {
                     System.out.println("Exiting...");
                     System.exit(0);
                 }
+                case 3 -> learnerView.displayLearner();
                 default -> System.out.println("Invalid choice");
             }
         }
