@@ -9,8 +9,10 @@ public class HJSSView {
 
     public void registerUser(){
         System.out.println("Register guy");
-        LocalDate date = LocalDate.now();
-        learnerController.registerLearner("Ghhg", "Praise", date, "+23454464343", 4 );
+        LocalDate dob = LocalDate.parse("1998-04-12");
+
+//        LocalDate date = LocalDate.now();
+        learnerController.registerLearner("Ghhg",  dob,  "Male", "+23454464343", 5 );
         System.out.println("User Added");
     }
 }

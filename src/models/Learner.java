@@ -1,26 +1,37 @@
 package models;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Learner {
     private String id;
     private String name;
+    private String gender;
     private LocalDate dateOfBirth;
     private String emergencyContact;
     private int currentGradeLevel;
+    
 
-    public Learner(String id, String name, LocalDate dateOfBirth, String emergencyContact, int currentGradeLevel) {
-        this.id = id;
+    public Learner(String name, String gender , LocalDate dateOfBirth, String emergencyContact, int currentGradeLevel) {
+        id = generateID(dateOfBirth);
         this.name = name;
+        this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.emergencyContact = emergencyContact;
         this.currentGradeLevel = currentGradeLevel;
     }
 
-    public String getId() {
-        return id;
+    private String generateID(LocalDate dateOfBirth) {
+        String formattedDateOfBirth = dateOfBirth.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+        int counter = 1;
+        String uniqueID = "HJSS-" + formattedDateOfBirth + "-" + String.format("%03d", counter);
+        counter++;
+        return uniqueID;
     }
 
+    private int calculateLearnerAge() {
+        return 2;
+    }
     public void setId(String id) {
         this.id = id;
     }
@@ -41,6 +52,18 @@ public class Learner {
         this.dateOfBirth = dateOfBirth;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     public String getEmergencyContact() {
         return emergencyContact;
     }
@@ -56,4 +79,6 @@ public class Learner {
     public void setCurrentGradeLevel(int currentGradeLevel) {
         this.currentGradeLevel = currentGradeLevel;
     }
+
+
 }
