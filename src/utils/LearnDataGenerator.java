@@ -1,5 +1,5 @@
 package utils;
-import database.LearnersDB;
+import controller.LearnerController;
 import models.Learner;
 import java.util.Random;
 import java.time.LocalDate;
@@ -7,7 +7,7 @@ public class LearnDataGenerator {
     private static final String[] FIRST_NAMES = {"Emma", "Noah", "Olivia", "Liam", "Ava", "William", "Sophia", "Mason", "Isabella", "James"};
     private static final String[] LAST_NAMES = {"Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor"};
     Learner learner = new Learner();
-    LearnersDB learnersDB = LearnersDB.getInstance();
+    LearnerController learnerController = new LearnerController();
     public void generateDummyData(int count) {
         for (int i = 1; i <= count; i++) {
             String id = learner.generateID(generateDateOfBirth());
@@ -16,9 +16,7 @@ public class LearnDataGenerator {
             LocalDate dateOfBirth = generateDateOfBirth();
             String emergencyContact = generateEmergencyContact();
             int currentGradeLevel = generateGradeLevel();
-
-            Learner learner = new Learner(name, gender, dateOfBirth, emergencyContact, currentGradeLevel);
-            learnersDB.addLearner(learner);
+            learnerController.registerLearner(name, dateOfBirth, gender, emergencyContact, currentGradeLevel);
         }
     }
 

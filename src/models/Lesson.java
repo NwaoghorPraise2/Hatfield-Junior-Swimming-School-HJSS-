@@ -2,6 +2,7 @@ package models;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Lesson {
@@ -11,12 +12,12 @@ public class Lesson {
     private int capacity;
     private Map<Integer, Learner> bookings;
 
-    public Lesson(int gradeLevel, DayOfWeek day, LocalTime timeSlot, int capacity, Map<Integer, Learner> bookings) {
+    public Lesson(int gradeLevel, DayOfWeek day, LocalTime timeSlot) {
         this.gradeLevel = gradeLevel;
         this.day = day;
         this.timeSlot = timeSlot;
-        this.capacity = capacity;
-        this.bookings = bookings;
+        this.capacity = 4;
+        this.bookings = new HashMap<>(capacity);
     }
 
     public int getGradeLevel() {
