@@ -6,10 +6,11 @@ import java.time.LocalDate;
 public class LearnDataGenerator {
     private static final String[] FIRST_NAMES = {"Emma", "Noah", "Olivia", "Liam", "Ava", "William", "Sophia", "Mason", "Isabella", "James"};
     private static final String[] LAST_NAMES = {"Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor"};
+    Learner learner = new Learner();
     LearnersDB learnersDB = LearnersDB.getInstance();
     public void generateDummyData(int count) {
         for (int i = 1; i <= count; i++) {
-            String id = generateId(i);
+            String id = learner.generateID(generateDateOfBirth());
             String name = generateName();
             String gender = generateGender();
             LocalDate dateOfBirth = generateDateOfBirth();
@@ -19,13 +20,6 @@ public class LearnDataGenerator {
             Learner learner = new Learner(name, gender, dateOfBirth, emergencyContact, currentGradeLevel);
             learnersDB.addLearner(learner);
         }
-    }
-
-    public static String generateId(int counter) {
-        String idPrefix = "HJSS-";
-        LocalDate dateOfBirth = generateDateOfBirth();
-        String counterPadded = String.format("%03d", counter);
-        return idPrefix + dateOfBirth + "-" + counterPadded;
     }
 
     public static String generateName() {

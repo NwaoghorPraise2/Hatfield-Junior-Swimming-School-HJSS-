@@ -10,7 +10,11 @@ public class Learner {
     private LocalDate dateOfBirth;
     private String emergencyContact;
     private int currentGradeLevel;
+
+    private static int counter = 0;
     
+    public Learner() {
+    }
 
     public Learner(String name, String gender , LocalDate dateOfBirth, String emergencyContact, int currentGradeLevel) {
         id = generateID(dateOfBirth);
@@ -21,11 +25,9 @@ public class Learner {
         this.currentGradeLevel = currentGradeLevel;
     }
 
-    private String generateID(LocalDate dateOfBirth) {
+    public String generateID(LocalDate dateOfBirth) {
         String formattedDateOfBirth = dateOfBirth.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-        int counter = 1;
-        String uniqueID = "HJSS-" + formattedDateOfBirth + "-" + String.format("%03d", counter);
-        counter++;
+        String uniqueID = "HJSS-" + formattedDateOfBirth + "-" + String.format("%03d", counter++);
         return uniqueID;
     }
 
