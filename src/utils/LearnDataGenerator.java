@@ -6,11 +6,9 @@ import java.time.LocalDate;
 public class LearnDataGenerator {
     private static final String[] FIRST_NAMES = {"Emma", "Noah", "Olivia", "Liam", "Ava", "William", "Sophia", "Mason", "Isabella", "James"};
     private static final String[] LAST_NAMES = {"Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor"};
-    Learner learner = new Learner();
     LearnerController learnerController = new LearnerController();
     public void generateDummyData(int count) {
         for (int i = 1; i <= count; i++) {
-            String id = learner.generateID(generateDateOfBirth());
             String name = generateName();
             String gender = generateGender();
             LocalDate dateOfBirth = generateDateOfBirth();

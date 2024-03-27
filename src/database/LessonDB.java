@@ -19,7 +19,7 @@ public class LessonDB {
             lessons = new ArrayList<>();
         }
 
-        public void addLession(Lesson lesson) {
+        public void addLesson(Lesson lesson) {
             lessons.add(lesson);
         }
 

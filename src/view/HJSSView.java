@@ -1,14 +1,8 @@
 package view;
-
-import controller.LearnerController;
-import utils.LearnerInputValidator;
 import java.util.*;
 
 public class HJSSView {
     private static final Scanner scanner = new Scanner(System.in);
-    private static final LearnerInputValidator learnerInputValidator = new LearnerInputValidator();
-    private final LearnerController learnerController = new LearnerController();
-
     private final LearnerView learnerView = new LearnerView();
 
     public HJSSView() {
@@ -16,6 +10,7 @@ public class HJSSView {
     }
 
     public void start() {
+
         while (true) {
             System.out.println("""
                     Welcome to Hatfield Junior School System
@@ -24,15 +19,15 @@ public class HJSSView {
                     2. Exit
                     3. View all learners
                     +-----------------------------------------------------+
-                    Enter your choice: 
+                    Enter your choice:
                     """);
             int choice;
             try {
                 choice = scanner.nextInt();
-                scanner.nextLine(); // Consume the newline character
+                scanner.nextLine();
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter a number.");
-                scanner.nextLine(); // Consume the invalid input
+                scanner.nextLine();
                 continue;
             }
 

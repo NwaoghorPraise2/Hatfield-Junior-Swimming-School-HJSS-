@@ -16,7 +16,6 @@ public class LearnerView {
         List<Learner> allLearners = learnerController.getAllLearners();
         for (Learner learner : allLearners) {
             System.out.println(learner.toString());
-            System.out.println();
         }
     }
 
