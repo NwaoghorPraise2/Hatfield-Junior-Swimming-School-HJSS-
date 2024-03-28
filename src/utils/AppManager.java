@@ -6,6 +6,7 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class AppManager {
 
@@ -24,11 +25,15 @@ public class AppManager {
         }
     }
 
-    LessonDB lessonDB = LessonDB.getInstance();
-//    public void addLesson (){
-//        LessonController lessonController = new LessonController();
-//        String result = lessonController.createLesson(3, DayOfWeek.MONDAY , LocalTime.of(9,0));
-//        System.out.println(result);
-//        System.out.println(lessonDB.getLessons().toString());
-//    }
+    public String assignCoach() {
+        String[] coaches = {"John", "Emily", "Michael", "Sarah", "David", "Jessica", "Christopher", "Jennifer"};
+        Random random = new Random();
+        String coach = coaches[random.nextInt(coaches.length)];
+        return coach;
+    }
+
+
+    public int setLessonCapacity() {
+        return 4;
+    }
 }

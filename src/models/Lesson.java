@@ -5,6 +5,7 @@ import utils.AppManager;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -12,38 +13,52 @@ public class Lesson {
 
     private LocalDate date;
     private DayOfWeek dayOfTheWeek;
-    private String timeSlot;
-    private String lessonRef;
     private String coach;
+    private String timeSlots;
+    private String lessonRef;
     private int gradeLevel;
     private List<Integer> bookings;
-    private int maxBookings;
+    private int capacity;
     private String status;
 
     AppManager appManager = new AppManager();
 
-    public Lesson(LocalDate date, DayOfWeek dayOfTheWeek, String timeSlot, String lessonRef, String coach, int gradeLevel, List<Integer> bookings, int maxBookings, String status) {
+    public Lesson(LocalDate date, DayOfWeek dayOfTheWeek, int gradeLevel) {
         this.date = date;
         this.dayOfTheWeek = dayOfTheWeek;
-        this.timeSlot = generateTimeSlots(dayOfTheWeek, appManager.getStartTime(dayOfTheWeek));
-        this.lessonRef = lessonRef;
-        this.coach = coach;
+        this.generateTimeSlots(dayOfTheWeek, appManager.getStartTime(dayOfTheWeek));
+        this.generateLessonRef(date, dayOfTheWeek);
+        this.coach = appManager.assignCoach();
         this.gradeLevel = gradeLevel;
-        this.bookings = bookings;
-        this.maxBookings = maxBookings;
-        this.status = status;
+        this.capacity = appManager.setLessonCapacity();
+        this.bookings = new ArrayList<>(this.capacity);
+        this.status = "Available";
     }
 
 
-    private String generateTimeSlots(DayOfWeek dayOfTheWeek, LocalTime startTime) {
+    private void generateTimeSlots(DayOfWeek dayOfTheWeek, LocalTime startTime) {
         int numberOfSlots = (dayOfTheWeek == DayOfWeek.SATURDAY) ? 2 : 3;
         String slotsString = "";
         for (int i = 0; i < numberOfSlots; i++) {
             LocalTime endTime = startTime.plusHours(1);
-            slotsString += "Slot " + (i + 1) + ": " + startTime + " to " + endTime + "\n";
+           this.timeSlots = slotsString += "Slot " + (i + 1) + ": " + startTime + " to " + endTime + "\n";
             startTime = endTime;
         }
-        return slotsString;
+    }
+
+    private void generateLessonRef(LocalDate date, DayOfWeek dayOfWeek) {
+        int day = date.getDayOfMonth();
+        int month = date.getMonthValue();
+        int year = date.getYear();
+
+        String dayOfWeekName = dayOfWeek.toString().toLowerCase();
+        this.lessonRef = String.format("%s-%02d-%02d-%d", dayOfWeekName, day, month, year);
+    }
+
+    private void updateStatus() {
+        if (bookings.size() == this.capacity) {
+            this.status = "Fully Booked";
+        }
     }
     public LocalDate getDate() {
         return date;
@@ -61,13 +76,6 @@ public class Lesson {
         this.dayOfTheWeek = dayOfTheWeek;
     }
 
-    public String getTimeSlot() {
-        return timeSlot;
-    }
-
-    public void setTimeSlot(String timeSlot) {
-        this.timeSlot = timeSlot;
-    }
 
     public String getLessonRef() {
         return lessonRef;
@@ -101,14 +109,6 @@ public class Lesson {
         this.bookings = bookings;
     }
 
-    public int getMaxBookings() {
-        return maxBookings;
-    }
-
-    public void setMaxBookings(int maxBookings) {
-        this.maxBookings = maxBookings;
-    }
-
     public String getStatus() {
         return status;
     }
@@ -117,17 +117,17 @@ public class Lesson {
         this.status = status;
     }
 
-    @Override
+  @Override
     public String toString() {
         return "Lesson{" +
                 "date=" + date +
                 ", dayOfTheWeek=" + dayOfTheWeek +
-                ", timeSlot='" + timeSlot + '\'' +
-                ", lessonRef='" + lessonRef + '\'' +
                 ", coach='" + coach + '\'' +
+                ", timeSlots='" + timeSlots + '\'' +
+                ", lessonRef='" + lessonRef + '\'' +
                 ", gradeLevel=" + gradeLevel +
                 ", bookings=" + bookings +
-                ", maxBookings=" + maxBookings +
+                ", capacity=" + capacity +
                 ", status='" + status + '\'' +
                 '}';
     }
