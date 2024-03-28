@@ -2,7 +2,7 @@ package view;
 
 import controller.LearnerController;
 import models.Learner;
-import utils.LearnerInputValidator;
+import middlewares.LearnerInputValidator;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;

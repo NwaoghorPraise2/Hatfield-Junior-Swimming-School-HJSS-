@@ -50,6 +50,10 @@ public class Lesson {
         }
     }
 
+    public String getTimeSlots() {
+        return timeSlots;
+    }
+
     private void generateLessonRef(LocalDate date, DayOfWeek dayOfWeek) {
         int day = date.getDayOfMonth();
         int month = date.getMonthValue();
@@ -80,6 +84,9 @@ public class Lesson {
         this.dayOfTheWeek = dayOfTheWeek;
     }
 
+    public int getCapacity() {
+        return capacity;
+    }
 
     public String getLessonRef() {
         return lessonRef;
