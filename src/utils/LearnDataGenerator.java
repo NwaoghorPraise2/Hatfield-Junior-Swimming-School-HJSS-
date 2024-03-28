@@ -7,6 +7,7 @@ public class LearnDataGenerator {
     private static final String[] FIRST_NAMES = {"Emma", "Noah", "Olivia", "Liam", "Ava", "William", "Sophia", "Mason", "Isabella", "James"};
     private static final String[] LAST_NAMES = {"Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor"};
     LearnerController learnerController = new LearnerController();
+
     public void generateDummyData(int count) {
         for (int i = 1; i <= count; i++) {
             String name = generateName();
@@ -46,7 +47,8 @@ public class LearnDataGenerator {
     }
 
     public static int generateGradeLevel() {
-        return new Random().nextInt(5) + 1; // 1 to 5
+        return new Random().nextInt(5) + 1;
+
     }
 
 }

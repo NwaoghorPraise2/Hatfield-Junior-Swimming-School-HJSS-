@@ -13,7 +13,7 @@ public class Lesson {
 
     private LocalDate date;
     private DayOfWeek dayOfTheWeek;
-    private String coach;
+//    private String coach
     private String timeSlots;
     private String lessonRef;
     private int gradeLevel;
@@ -28,7 +28,6 @@ public class Lesson {
         this.dayOfTheWeek = dayOfTheWeek;
         this.generateTimeSlots(dayOfTheWeek, appManager.getStartTime(dayOfTheWeek));
         this.generateLessonRef(date, dayOfTheWeek);
-        this.coach = appManager.assignCoach();
         this.gradeLevel = gradeLevel;
         this.capacity = appManager.setLessonCapacity();
         this.bookings = new ArrayList<>(this.capacity);
@@ -45,7 +44,8 @@ public class Lesson {
         String slotsString = "";
         for (int i = 0; i < numberOfSlots; i++) {
             LocalTime endTime = startTime.plusHours(1);
-           this.timeSlots = slotsString += "Slot " + (i + 1) + ": " + startTime + " to " + endTime + "\n";
+            String coach = appManager.assignCoach();
+           this.timeSlots = slotsString += "Slot " + (i + 1) + ": " + startTime + " to " + endTime + " " + "Coach:" + coach +"\n";
             startTime = endTime;
         }
     }
@@ -89,13 +89,6 @@ public class Lesson {
         this.lessonRef = lessonRef;
     }
 
-    public String getCoach() {
-        return coach;
-    }
-
-    public void setCoach(String coach) {
-        this.coach = coach;
-    }
 
     public int getGradeLevel() {
         return gradeLevel;
@@ -126,7 +119,6 @@ public class Lesson {
         return "Lesson{" +
                 "date=" + date +
                 ", dayOfTheWeek=" + dayOfTheWeek +
-                ", coach='" + coach + '\'' +
                 ", timeSlots='" + timeSlots + '\'' +
                 ", lessonRef='" + lessonRef + '\'' +
                 ", gradeLevel=" + gradeLevel +

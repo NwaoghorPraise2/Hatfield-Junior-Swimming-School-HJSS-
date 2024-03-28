@@ -26,4 +26,8 @@ public class LessonDB {
         public List<Lesson> getLessons() {
             return lessons;
         }
+
+        public int getLessonCount() {
+            return lessons.size();
+        }
 }
