@@ -35,6 +35,10 @@ public class Lesson {
         this.status = "Available";
     }
 
+    public Lesson (){
+
+    }
+
 
     private void generateTimeSlots(DayOfWeek dayOfTheWeek, LocalTime startTime) {
         int numberOfSlots = (dayOfTheWeek == DayOfWeek.SATURDAY) ? 2 : 3;

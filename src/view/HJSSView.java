@@ -1,9 +1,13 @@
 package view;
+import controller.LessonController;
+
 import java.util.*;
 
 public class HJSSView {
     private static final Scanner scanner = new Scanner(System.in);
     private final LearnerView learnerView = new LearnerView();
+
+    private final LessonView lessonView = new LessonView();
 
     public HJSSView() {
         start();
@@ -18,6 +22,7 @@ public class HJSSView {
                     1. Register a learner
                     2. Exit
                     3. View all learners
+                    4. Display Lessons
                     +-----------------------------------------------------+
                     Enter your choice:
                     """);
@@ -38,6 +43,7 @@ public class HJSSView {
                     System.exit(0);
                 }
                 case 3 -> learnerView.displayLearner();
+                case 4 -> lessonView.displayLessons();
                 default -> System.out.println("Invalid choice");
             }
         }
