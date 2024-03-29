@@ -12,8 +12,6 @@ import java.util.Random;
 public class AppManager {
 
     public LocalTime getStartTime(DayOfWeek dayOfWeek) {
-        // You can implement your logic to retrieve start time dynamically
-        // For demonstration, returning some hardcoded values
         switch (dayOfWeek) {
             case MONDAY:
             case WEDNESDAY:

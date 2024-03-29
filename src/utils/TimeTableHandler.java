@@ -9,8 +9,8 @@ public class TimeTableHandler {
 
     public void displayTimeTable() {
         System.out.println("========== TIMETABLE ==========");
-        System.out.printf("%-20s%-12s%-10s%-20s%-40s\n", "Date", "Day", "Grade", "Status", "Time Slots");
-        System.out.println("-------------------------------------------------------------------------------------------");
+        System.out.printf("%-20s%-12s%-10s%-20s%-30s%-1000s\n", "Date", "Day", "Grade", "Status", "LessonRef", "Time Slots");
+        System.out.println("------------------------------------------------------------------------------------------------------------------");
 
         for(Lesson lesson : lessonController.getAllLessons()) {
             String [] slots = lesson.getTimeSlots().split(",");
@@ -18,20 +18,21 @@ public class TimeTableHandler {
             int maxSlotLength = lesson.getCapacity();
 
             for(String slot : slots) {
-                System.out.printf("%-20s%-12s%-10s%-20s%-40s",
+                System.out.printf("%-20s%-12s%-10s%-20s%-30s%-1000s",
                         lesson.getDate(),
                         lesson.getDayOfTheWeek(),
                         lesson.getGradeLevel(),
                         lesson.getStatus(),
+                        lesson.getLessonRef(),
                         slot);
                 if (slot.length() > maxSlotLength){
                     for(int i = 0; i < maxSlotLength - slot.length(); i++ ){
-                        System.out.print(" ");
+                        System.out.print("                 -40s%\n" + slot);
                     }
                     System.out.println();
                 }
             }
-            System.out.println("-------------------------------------------------------------------------------------------");
+            System.out.println("---------------------------------------------------------------------------------------------------------------");
         }
     }
 }
