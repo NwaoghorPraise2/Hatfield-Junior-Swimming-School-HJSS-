@@ -7,6 +7,7 @@ public class LearnDataGenerator {
     private static final String[] FIRST_NAMES = {"Emma", "Noah", "Olivia", "Liam", "Ava", "William", "Sophia", "Mason", "Isabella", "James"};
     private static final String[] LAST_NAMES = {"Smith", "Johnson", "Williams", "Jones", "Brown", "Davis", "Miller", "Wilson", "Moore", "Taylor"};
     LearnerController learnerController = new LearnerController();
+    AppManager appManager = new AppManager();
 
     public void generateDummyData(int count) {
         for (int i = 1; i <= count; i++) {
@@ -14,7 +15,7 @@ public class LearnDataGenerator {
             String gender = generateGender();
             LocalDate dateOfBirth = generateDateOfBirth();
             String emergencyContact = generateEmergencyContact();
-            int currentGradeLevel = generateGradeLevel();
+            int currentGradeLevel = appManager.assignGradeLevel();
             learnerController.registerLearner(name, dateOfBirth, gender, emergencyContact, currentGradeLevel);
         }
     }
@@ -45,10 +46,4 @@ public class LearnDataGenerator {
         long number = 7000000000L + (long) (random.nextDouble() * 1000000000L);
         return "+44" + number;
     }
-
-    public static int generateGradeLevel() {
-        return new Random().nextInt(5) + 1;
-
-    }
-
 }

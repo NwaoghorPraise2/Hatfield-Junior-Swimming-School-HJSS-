@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class AppManager {
 
-    public LocalTime getStartTime(DayOfWeek dayOfWeek) {
+    public LocalTime setStartTime(DayOfWeek dayOfWeek) {
         switch (dayOfWeek) {
             case MONDAY:
             case WEDNESDAY:
@@ -39,5 +39,9 @@ public class AppManager {
     public void addLesson() {
         LessonController lessonController = new LessonController();
         lessonController.createLesson(LocalDate.of(2022, 3, 12), DayOfWeek.WEDNESDAY, 2);
+    }
+
+    public static int assignGradeLevel() {
+        return new Random().nextInt(5) + 1;
     }
 }
