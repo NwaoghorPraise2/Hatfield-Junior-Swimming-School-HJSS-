@@ -1,6 +1,7 @@
 package models;
 
 import utils.AppManager;
+import utils.LearnDataGenerator;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -10,13 +11,11 @@ import java.util.List;
 
 
 public class Lesson {
-
     private LocalDate date;
     private DayOfWeek dayOfTheWeek;
-//    private String coach
     private String timeSlots;
     private String lessonRef;
-    private int gradeLevel;
+//    private int gradeLevel;
     private List<Integer> bookings;
     private int capacity;
     private String status;
@@ -26,9 +25,9 @@ public class Lesson {
     public Lesson(LocalDate date, DayOfWeek dayOfTheWeek, int gradeLevel) {
         this.date = date;
         this.dayOfTheWeek = dayOfTheWeek;
-        this.generateTimeSlots(dayOfTheWeek, appManager.getStartTime(dayOfTheWeek));
+        this.generateTimeSlots(dayOfTheWeek, appManager.setStartTime(dayOfTheWeek));
         this.generateLessonRef(date, dayOfTheWeek);
-        this.gradeLevel = gradeLevel;
+//        this.gradeLevel = gradeLevel;
         this.capacity = appManager.setLessonCapacity();
         this.bookings = new ArrayList<>(this.capacity);
         this.status = "Available";
@@ -45,7 +44,8 @@ public class Lesson {
         for (int i = 0; i < numberOfSlots; i++) {
             LocalTime endTime = startTime.plusHours(1);
             String coach = appManager.assignCoach();
-           this.timeSlots = slotsString += "Slot " + (i + 1) + ": " + startTime + " to " + endTime + " " + "Coach:" + coach +"\n";
+            int gradeLevel = appManager.assignGradeLevel();
+           this.timeSlots = slotsString += "Slot " + (i + 1) + ": " + startTime + " to " + endTime + " " + "Coach:" + coach +" "+ "GradeLevel:" + gradeLevel +"\n";
             startTime = endTime;
         }
     }
@@ -97,13 +97,13 @@ public class Lesson {
     }
 
 
-    public int getGradeLevel() {
-        return gradeLevel;
-    }
-
-    public void setGradeLevel(int gradeLevel) {
-        this.gradeLevel = gradeLevel;
-    }
+//    public int getGradeLevel() {
+//        return gradeLevel;
+//    }
+//
+//    public void setGradeLevel(int gradeLevel) {
+//        this.gradeLevel = gradeLevel;
+//    }
 
     public List<Integer> getBookings() {
         return bookings;
@@ -128,7 +128,6 @@ public class Lesson {
                 ", dayOfTheWeek=" + dayOfTheWeek +
                 ", timeSlots='" + timeSlots + '\'' +
                 ", lessonRef='" + lessonRef + '\'' +
-                ", gradeLevel=" + gradeLevel +
                 ", bookings=" + bookings +
                 ", capacity=" + capacity +
                 ", status='" + status + '\'' +
