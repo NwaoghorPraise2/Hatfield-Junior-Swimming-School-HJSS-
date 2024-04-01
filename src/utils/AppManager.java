@@ -1,15 +1,25 @@
 package utils;
 
-import controller.LessonController;
-import database.LessonDB;
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class AppManager {
+    private static AppManager instance;
+    private final String[] COACHES = {"John", "Emily", "Michael", "Sarah", "David", "Jessica", "Christopher", "Jennifer"};
+    private final Random random = new Random();
+
+    // Private constructor to prevent instantiation from outside
+    private AppManager() {
+    }
+
+    // Method to get the singleton instance
+    public static AppManager getInstance() {
+        if (instance == null) {
+            instance = new AppManager();
+        }
+        return instance;
+    }
 
     public LocalTime setStartTime(DayOfWeek dayOfWeek) {
         switch (dayOfWeek) {
@@ -25,23 +35,14 @@ public class AppManager {
     }
 
     public String assignCoach() {
-        String[] coaches = {"John", "Emily", "Michael", "Sarah", "David", "Jessica", "Christopher", "Jennifer"};
-        Random random = new Random();
-        String coach = coaches[random.nextInt(coaches.length)];
-        return coach;
+        return COACHES[random.nextInt(COACHES.length)]; // Randomly select a coach from the array
     }
-
 
     public int setLessonCapacity() {
-        return 4;
+        return 4; // Return a constant value for lesson capacity
     }
 
-    public void addLesson() {
-        LessonController lessonController = new LessonController();
-        lessonController.createLesson(LocalDate.of(2022, 3, 12), DayOfWeek.WEDNESDAY, 2);
-    }
-
-    public static int assignGradeLevel() {
-        return new Random().nextInt(5) + 1;
+    public int assignGradeLevel() {
+        return random.nextInt(5) + 1; // Randomly assign a grade level between 1 and 5
     }
 }

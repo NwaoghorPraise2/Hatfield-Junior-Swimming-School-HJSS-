@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class LearnerView {
     private final Scanner scanner = new Scanner(System.in);
-    private final LearnerController learnerController = new LearnerController();
+    private LearnerController learnerController = LearnerController.getInstance();
     private final LearnerInputValidator learnerInputValidator = new LearnerInputValidator();
 
     public void displayLearner() {

@@ -3,25 +3,43 @@ package utils;
 import controller.LessonController;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.Random;
 
 public class LessonDataGenerator {
-    private LocalDate currentDate = LocalDate.now();
-    private LocalDate startDate = currentDate.minusWeeks(4);
-    private LocalDate endDate = currentDate.plusWeeks(2);
-    private LearnDataGenerator learnDataGenerator = new LearnDataGenerator();
-    private AppManager appManager = new AppManager();
-    LessonController lessonController = new LessonController();
+    private LocalDate currentDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private LearnDataGenerator learnDataGenerator;
+    private AppManager appManager;
+    private LessonController lessonController;
+
+    public LessonDataGenerator() {
+        currentDate = LocalDate.now();
+        startDate = currentDate.minusWeeks(4);
+        endDate = currentDate.plusWeeks(2);
+        learnDataGenerator = new LearnDataGenerator();
+        appManager = AppManager.getInstance();
+        lessonController = new LessonController();
+    }
 
     public void generateLessonData() {
-        while (startDate.isBefore(endDate)) {
-           for (int i = 0; i < 7; i++) {
-               DayOfWeek dayOfWeek = startDate.getDayOfWeek();
-               if(dayOfWeek.getValue() == 1 || dayOfWeek.getValue() == 2 || dayOfWeek.getValue() == 3 || dayOfWeek.getValue() == 6 ){
-                   lessonController.createLesson(startDate, dayOfWeek, appManager.assignGradeLevel());
-               }
-               startDate = startDate.plusDays(1);
-           }
+        LocalDate tempDate = startDate; // Reuse currentDate for iteration
+
+        while (!tempDate.isAfter(endDate)) {
+            DayOfWeek dayOfWeek = tempDate.getDayOfWeek();
+
+            // Check if the current day is one of the specified days for lessons
+            if (dayOfWeek == DayOfWeek.MONDAY || dayOfWeek == DayOfWeek.WEDNESDAY ||
+                    dayOfWeek == DayOfWeek.FRIDAY || dayOfWeek == DayOfWeek.SATURDAY) {
+                int lessonsToGenerate = (dayOfWeek == DayOfWeek.SATURDAY) ? 2 : 3;
+
+                // Generate the specified number of lessons for the current day
+                for (int i = 0; i < lessonsToGenerate; i++) {
+                    lessonController.createLesson(tempDate, dayOfWeek, appManager.assignCoach(),
+                            appManager.assignGradeLevel(), appManager.setLessonCapacity());
+                }
+            }
+            // Move to the next day
+            tempDate = tempDate.plusDays(1);
         }
     }
 }

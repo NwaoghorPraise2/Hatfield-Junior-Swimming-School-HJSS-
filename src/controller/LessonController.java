@@ -11,10 +11,10 @@ import java.util.List;
 
 public class LessonController {
     LessonDB lessonDB = LessonDB.getInstance();
-    public String createLesson (LocalDate date, DayOfWeek dayOfTheWeek, int gradeLevel){
-        Lesson lesson = new Lesson(date, dayOfTheWeek, gradeLevel);
+    public String createLesson (LocalDate date, DayOfWeek dayOfTheWeek, String coach, int gradeLevel, int capacity){
+        Lesson lesson = new Lesson(date, dayOfTheWeek, coach, gradeLevel, capacity);
         lessonDB.addLesson(lesson);
-        return "LESSION ADDED";
+        return "LESSON ADDED";
     }
 
     public  List<Lesson> getAllLessons() {
