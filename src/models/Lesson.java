@@ -19,13 +19,14 @@ public class Lesson {
     private String status;
     private LocalTime startTime;
     private String timeSlot;
+    private static int lessonCounter = 1;
 
     public Lesson(LocalDate date, DayOfWeek dayOfTheWeek, String coach, int gradeLevel, int capacity) {
         this.date = date;
         this.dayOfTheWeek = dayOfTheWeek;
         this.coach = coach;
         this.gradeLevel = gradeLevel;
-        this.generateLessonRef();
+        generateLessonRef();
         this.capacity = capacity;
         this.bookings = new ArrayList<>(capacity);
         this.status = "Available";
@@ -38,7 +39,7 @@ public class Lesson {
     }
 
     private void generateLessonRef() {
-        this.lessonRef = String.format("%s-%02d-%02d-%d", dayOfTheWeek.toString().toLowerCase(), date.getDayOfMonth(), date.getMonthValue(), date.getYear());
+        this.lessonRef = String.format("%s-%02d-%02d-%d-SLT%d", dayOfTheWeek.toString().toLowerCase().substring(0, 3), date.getDayOfMonth(), date.getMonthValue(), date.getYear(), lessonCounter++);
     }
 
     private String createTimeSlot(LocalTime startTime) {
@@ -52,11 +53,6 @@ public class Lesson {
         if (bookings.size() == this.capacity) {
             this.status = "Fully Booked";
         }
-    }
-
-    private String timeSlot(LocalTime startTime) {
-        LocalTime endTime = startTime.plusHours(1);
-        return startTime + " - " + endTime;
     }
 
     public LocalDate getDate() {

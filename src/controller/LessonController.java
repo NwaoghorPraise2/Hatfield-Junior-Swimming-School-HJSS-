@@ -20,4 +20,20 @@ public class LessonController {
     public  List<Lesson> getAllLessons() {
         return lessonDB.getLessons();
     }
+
+    public List<Lesson> getLessonsByCoach(String coach) {
+        return lessonDB.getLessonsByCoach(coach);
+    }
+
+    public List<Lesson> getLessonsByGradeLevel(int gradeLevel) {
+        return lessonDB.getLessonsByGradeLevel(gradeLevel);
+    }
+
+    public List<Lesson> getLessonsByDay(DayOfWeek dayOfTheWeek) {
+        return lessonDB.getLessonsByDay(dayOfTheWeek);
+    }
+
+    public Lesson getLessonByRef(String lessonRef) {
+        return lessonDB.getLessonByRef(lessonRef);
+    }
 }
