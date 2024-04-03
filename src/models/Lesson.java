@@ -15,7 +15,7 @@ public class Lesson {
     private int gradeLevel;
     private String lessonRef;
     private int capacity;
-    private List<Integer> bookings;
+    private List<String> bookings;
     private String status;
     private LocalTime startTime;
     private String timeSlot;
@@ -103,11 +103,11 @@ public class Lesson {
         this.capacity = capacity;
     }
 
-    public List<Integer> getBookings() {
+    public List<String> getBookings() {
         return bookings;
     }
 
-    public void setBookings(List<Integer> bookings) {
+    public void setBookings(List<String> bookings) {
         this.bookings = bookings;
     }
 
@@ -139,8 +139,18 @@ public class Lesson {
 
     @Override
     public String toString() {
-        return String.format("| %-10s | %-15s | %-10s | %-12d | %-20s | %-8d | %-10s | %-15s |",
-                date, dayOfTheWeek, coach, gradeLevel, lessonRef, capacity, status, timeSlot);
+        return "Lesson{" +
+                "date=" + date +
+                ", dayOfTheWeek=" + dayOfTheWeek +
+                ", coach='" + coach + '\'' +
+                ", gradeLevel=" + gradeLevel +
+                ", lessonRef='" + lessonRef + '\'' +
+                ", capacity=" + capacity +
+                ", bookings=" + bookings +
+                ", status='" + status + '\'' +
+                ", startTime=" + startTime +
+                ", timeSlot='" + timeSlot + '\'' +
+                '}';
     }
 
 }

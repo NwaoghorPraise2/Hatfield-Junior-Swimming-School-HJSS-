@@ -28,4 +28,8 @@ public class LearnerController {
     public List<Learner> getAllLearners() {
         return learnersDB.getLearners();
     }
+
+    public Learner getLearnerById(String id) {
+        return learnersDB.getLearner(id);
+    }
 }

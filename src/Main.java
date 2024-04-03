@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
         LearnDataGenerator dataGenerator = new LearnDataGenerator();
         LessonDataGenerator lessonDataGenerator = new LessonDataGenerator();
+        AppManager appManager = AppManager.getInstance();
         LessonDB lessonDB = new LessonDB();
         System.out.println("Initialising System");
         System.out.println("Loading data");

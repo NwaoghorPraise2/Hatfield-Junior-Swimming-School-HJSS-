@@ -10,6 +10,10 @@ import java.time.LocalTime;
 import java.util.List;
 
 public class LessonController {
+    private static final LessonController INSTANCE = new LessonController();
+    public static LessonController getInstance() {
+        return INSTANCE;
+    }
     LessonDB lessonDB = LessonDB.getInstance();
     public String createLesson (LocalDate date, DayOfWeek dayOfTheWeek, String coach, int gradeLevel, int capacity){
         Lesson lesson = new Lesson(date, dayOfTheWeek, coach, gradeLevel, capacity);

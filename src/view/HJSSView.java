@@ -1,5 +1,6 @@
 package view;
 import controller.LessonController;
+import utils.AppManager;
 import utils.TimeTableHandler;
 //import utils.TimeTableHandler;
 
@@ -9,8 +10,11 @@ public class HJSSView {
     private static final Scanner scanner = new Scanner(System.in);
     private final LearnerView learnerView = new LearnerView();
     private final LessonView lessonView = new LessonView();
+    private final BoookingView bookingView = new BoookingView();
 
     private final TimeTableHandler timeTableHandler = new TimeTableHandler();
+
+     private final AppManager appManager = AppManager.getInstance();
 
     public HJSSView() {
         start();
@@ -48,6 +52,7 @@ public class HJSSView {
                 case 3 -> learnerView.displayLearner();
                 case 4 -> lessonView.displayLessons();
                 case 5 -> timeTableHandler.displayTimetable();
+                case 6 -> bookingView.bookLesson();
                 default -> System.out.println("Invalid choice");
             }
         }

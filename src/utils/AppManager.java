@@ -1,5 +1,10 @@
 package utils;
 
+import controller.LearnerController;
+import controller.LessonController;
+import models.Learner;
+import models.Lesson;
+
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.Random;
@@ -8,6 +13,8 @@ public class AppManager {
     private static AppManager instance;
     private final String[] COACHES = {"John", "Emily", "Michael", "Sarah", "David", "Jessica", "Christopher", "Jennifer"};
     private final Random random = new Random();
+    private LearnerController learnerController = LearnerController.getInstance();
+    private LessonController lessonController = LessonController.getInstance();
 
     // Private constructor to prevent instantiation from outside
     private AppManager() {
@@ -20,6 +27,23 @@ public class AppManager {
         }
         return instance;
     }
+
+    public String bookLesson(String learnerID, String lessonRef){
+        Learner learner = learnerController.getLearnerById(learnerID);
+        if (learner == null) {
+            return "Learner not found";
+        }
+        Lesson lesson = lessonController.getLessonByRef(lessonRef);
+        if (lesson == null) {
+            return "Lesson not found";
+        }
+        if (lesson.getBookings().size() >= lesson.getCapacity()) {
+            return "Lesson is full";
+        }
+        lesson.getBookings().add(learner.getId());
+        return "Lesson booked successfully";
+    }
+
 
     public LocalTime setStartTime(DayOfWeek dayOfWeek) {
         switch (dayOfWeek) {

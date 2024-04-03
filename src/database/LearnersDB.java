@@ -29,4 +29,13 @@ public class LearnersDB {
         return learners;
     }
 
+    public Learner getLearner(String id) {
+        for (Learner learner : learners) {
+            if (learner.getId().equals(id)) {
+                return learner;
+            }
+        }
+        return null;
+    }
+
 }
