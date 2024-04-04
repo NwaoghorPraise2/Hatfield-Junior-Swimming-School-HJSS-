@@ -1,11 +1,13 @@
 package models;
 
-import utils.AppManager;
+import appManager.AppManager;
 
+import java.sql.Array;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Lesson {
@@ -15,7 +17,7 @@ public class Lesson {
     private int gradeLevel;
     private String lessonRef;
     private int capacity;
-    private List<String> bookings;
+    private  String[] bookings;
     private String status;
     private LocalTime startTime;
     private String timeSlot;
@@ -28,7 +30,7 @@ public class Lesson {
         this.gradeLevel = gradeLevel;
         generateLessonRef();
         this.capacity = capacity;
-        this.bookings = new ArrayList<>(capacity);
+        this.bookings = new String[capacity];
         this.status = "Available";
         this.startTime = AppManager.getInstance().setStartTime(dayOfTheWeek);
         this.timeSlot = createTimeSlot(startTime);
@@ -47,12 +49,22 @@ public class Lesson {
         return startTime + " - " + endTime;
     }
 
+    public Boolean isAvailable() {
+        return this.status.equals("Available");
+    }
 
-
-    private void updateStatus() {
-        if (bookings.size() == this.capacity) {
+    public void updateStatus() {
+        if(this.bookings.length == this.capacity) {
             this.status = "Fully Booked";
         }
+    }
+
+    public void setBookings(String[] bookings) {
+        this.bookings = bookings;
+    }
+
+    public String[] getBookings() {
+       return bookings;
     }
 
     public LocalDate getDate() {
@@ -101,14 +113,6 @@ public class Lesson {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
-    }
-
-    public List<String> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(List<String> bookings) {
-        this.bookings = bookings;
     }
 
     public String getStatus() {

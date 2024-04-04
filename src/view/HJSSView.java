@@ -1,6 +1,5 @@
 package view;
-import controller.LessonController;
-import utils.AppManager;
+import appManager.AppManager;
 import utils.TimeTableHandler;
 //import utils.TimeTableHandler;
 
@@ -10,7 +9,7 @@ public class HJSSView {
     private static final Scanner scanner = new Scanner(System.in);
     private final LearnerView learnerView = new LearnerView();
     private final LessonView lessonView = new LessonView();
-    private final BoookingView bookingView = new BoookingView();
+    private final BookingView bookingView = new BookingView();
 
     private final TimeTableHandler timeTableHandler = new TimeTableHandler();
 
@@ -26,6 +25,14 @@ public class HJSSView {
             System.out.println("""
                     Welcome to Hatfield Junior School System
                     +-----------------------------------------------------+
+                    1. Book a swimming lesson
+                    2. Change/Cancel a booking
+                    3. Attend a swimming lesson
+                    4. Monthly learner report
+                    5. Monthly coach report
+                    6. Register a new learner
+                    7. Exit
+                    
                     1. Register a learner
                     2. Exit
                     3. View all learners

@@ -1,5 +1,5 @@
 import database.LessonDB;
-import utils.AppManager;
+import appManager.AppManager;
 import utils.LearnDataGenerator;
 import utils.LessonDataGenerator;
 import view.HJSSView;

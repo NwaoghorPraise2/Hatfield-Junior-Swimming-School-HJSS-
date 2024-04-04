@@ -2,6 +2,8 @@ package models;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Learner {
     private String id;
@@ -10,6 +12,9 @@ public class Learner {
     private LocalDate dateOfBirth;
     private String emergencyContact;
     private int currentGradeLevel;
+    private List<String> bookedLessons;
+    private List<String> attendedLessons;
+    private List<String> canceledLessons;
 
     private static int counter = 0;
     
@@ -23,6 +28,17 @@ public class Learner {
         this.dateOfBirth = dateOfBirth;
         this.emergencyContact = emergencyContact;
         this.currentGradeLevel = currentGradeLevel;
+        this.bookedLessons = new ArrayList<>();
+        this.attendedLessons = new ArrayList<>();
+        this.canceledLessons = new ArrayList<>();
+    }
+
+    public List<String> getBookedLessons() {
+        return bookedLessons;
+    }
+
+    public void setBookedLessons(List<String> bookedLessons) {
+        this.bookedLessons = bookedLessons;
     }
 
     public String generateID(LocalDate dateOfBirth) {
@@ -30,6 +46,7 @@ public class Learner {
         String uniqueID = "HJSS-" + formattedDateOfBirth + "-" + String.format("%03d", counter++);
         return uniqueID;
     }
+
 
     private int calculateLearnerAge() {
         return 2;
@@ -84,7 +101,7 @@ public class Learner {
 
     @Override
     public String toString() {
-        return "Learners{" +
+        return "Learner{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", gender='" + gender + '\'' +

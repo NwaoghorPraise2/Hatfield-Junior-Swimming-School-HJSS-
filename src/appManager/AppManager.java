@@ -1,4 +1,4 @@
-package utils;
+package appManager;
 
 import controller.LearnerController;
 import controller.LessonController;
@@ -28,21 +28,7 @@ public class AppManager {
         return instance;
     }
 
-    public String bookLesson(String learnerID, String lessonRef){
-        Learner learner = learnerController.getLearnerById(learnerID);
-        if (learner == null) {
-            return "Learner not found";
-        }
-        Lesson lesson = lessonController.getLessonByRef(lessonRef);
-        if (lesson == null) {
-            return "Lesson not found";
-        }
-        if (lesson.getBookings().size() >= lesson.getCapacity()) {
-            return "Lesson is full";
-        }
-        lesson.getBookings().add(learner.getId());
-        return "Lesson booked successfully";
-    }
+
 
 
     public LocalTime setStartTime(DayOfWeek dayOfWeek) {
