@@ -19,8 +19,8 @@ public class BookingController {
     /**
      * Creates a booking for a learner with the specified ID for the lesson referenced by lessonRef.
      *
-     * @param learnerId  The ID of the learner for whom the booking is to be created.
-     * @param lessonRef  The reference of the lesson for which the booking is to be created.
+     * @param learnerId The ID of the learner for whom the booking is to be created.
+     * @param lessonRef The reference of the lesson for which the booking is to be created.
      * @return A message indicating the result of the booking attempt.
      */
     public String createBooking(String learnerId, String lessonRef) {
@@ -34,19 +34,25 @@ public class BookingController {
             }
 
             Learner learner = learnerController.getLearnerById(learnerId);
+
             if (learner == null) {
                 throw new IllegalArgumentException("Learner not found");
             }
+
             if (learner.getBookedLessons().contains(lesson.getLessonRef())) {
                 throw new IllegalStateException("Learner has already booked this lesson");
             }
+
             if (lesson.getGradeLevel() > learner.getCurrentGradeLevel() + 1 || lesson.getGradeLevel() < learner.getCurrentGradeLevel()) {
                 throw new IllegalStateException("Learner is not eligible to book this lesson");
             }
 
-            lesson.updateStatus();
+            lesson.addBookedLearner(learner.getId());
+
             Booking booking = new Booking(learnerId, lesson);
             bookingDB.addBooking(booking);
+
+            learner.getBookedLessons().add(booking.getBookingId());
 
             return "Booking Successful!!! Take your booking code: " + booking.getBookingId();
         } catch (IllegalArgumentException | IllegalStateException e) {
@@ -54,7 +60,42 @@ public class BookingController {
         }
     }
 
+    public String updateBooking(String bookingId, String lessonRef) {
+        try {
+            Booking booking = bookingDB.getBookingByBookingId(bookingId);
+            if (booking == null) {
+                throw new IllegalArgumentException("Booking not found");
+            }
+
+            if (!booking.getStatus().equals("Booked")) {
+                throw new IllegalStateException("Booking status is:" + " " + booking.getStatus() +" "+ "and cannot be changed");
+            }
+
+            Lesson lesson = booking.getLesson();
+
+            Lesson oldLesson = lessonController.getLessonByRef(lesson.getLessonRef());
+            if (oldLesson == null) {
+                throw new IllegalArgumentException("Lesson not found");
+            }
+
+
+
+            if (!lesson.isAvailable()) {
+                throw new IllegalStateException("Lesson is fully booked");
+            }
+
+            booking.setLesson(lesson);
+
+            return "Booking updated successfully";
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            return e.getMessage();
+        }
+    }
+
 }
+
+
+
 
 
 

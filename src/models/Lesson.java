@@ -59,6 +59,16 @@ public class Lesson {
         }
     }
 
+    public void addBookedLearner(String learnerId) {
+        for (int i = 0; i < bookings.length; i++) {
+            if (bookings[i] == null) {
+                bookings[i] = learnerId;
+                updateStatus();
+                return;
+            }
+        }
+    }
+
     public void setBookings(String[] bookings) {
         this.bookings = bookings;
     }

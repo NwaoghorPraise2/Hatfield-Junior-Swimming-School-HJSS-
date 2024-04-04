@@ -31,11 +31,11 @@ public class Booking {
         this.bookingId = bookingId;
     }
 
-    public Lesson getLessons() {
+    public Lesson getLesson() {
         return lesson;
     }
 
-    public void setLessons(Lesson lesson) {
+    public void setLesson(Lesson lesson) {
         this.lesson = lesson;
     }
 
