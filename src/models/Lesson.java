@@ -69,6 +69,16 @@ public class Lesson {
         }
     }
 
+    public void removeBookedLearner(String learnerId) {
+        for (int i = 0; i < bookings.length; i++) {
+            if (bookings[i].equals(learnerId)) {
+                bookings[i] = null;
+                updateStatus();
+                return;
+            }
+        }
+    }
+
     public void setBookings(String[] bookings) {
         this.bookings = bookings;
     }
@@ -160,7 +170,7 @@ public class Lesson {
                 ", gradeLevel=" + gradeLevel +
                 ", lessonRef='" + lessonRef + '\'' +
                 ", capacity=" + capacity +
-                ", bookings=" + bookings +
+                ", bookings=" + Arrays.toString(bookings) +
                 ", status='" + status + '\'' +
                 ", startTime=" + startTime +
                 ", timeSlot='" + timeSlot + '\'' +

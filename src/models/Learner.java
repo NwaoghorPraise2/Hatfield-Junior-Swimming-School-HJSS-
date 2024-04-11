@@ -14,7 +14,7 @@ public class Learner {
     private int currentGradeLevel;
     private List<String> bookedLessons;
     private List<String> attendedLessons;
-    private List<String> canceledLessons;
+    private List<String> cancelledLessons;
 
     private static int counter = 0;
     
@@ -30,7 +30,7 @@ public class Learner {
         this.currentGradeLevel = currentGradeLevel;
         this.bookedLessons = new ArrayList<>();
         this.attendedLessons = new ArrayList<>();
-        this.canceledLessons = new ArrayList<>();
+        this.cancelledLessons = new ArrayList<>();
     }
 
     public List<String> getBookedLessons() {
@@ -77,6 +77,22 @@ public class Learner {
 
     public String getId() {
         return id;
+    }
+
+    public List<String> getAttendedLessons() {
+        return attendedLessons;
+    }
+
+    public void setAttendedLessons(List<String> attendedLessons) {
+        this.attendedLessons = attendedLessons;
+    }
+
+    public List<String> getCancelledLessons() {
+        return cancelledLessons;
+    }
+
+    public void setCancelledLessons(List<String> cancelledLessons) {
+        this.cancelledLessons = cancelledLessons;
     }
 
     public void setGender(String gender) {
