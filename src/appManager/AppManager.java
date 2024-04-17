@@ -29,8 +29,6 @@ public class AppManager {
     }
 
 
-
-
     public LocalTime setStartTime(DayOfWeek dayOfWeek) {
         switch (dayOfWeek) {
             case MONDAY:
