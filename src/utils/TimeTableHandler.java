@@ -42,12 +42,12 @@ public class TimeTableHandler {
      */
     public void displayTimetableByGradeLevel(int gradeLevel) {
         try {
+            System.out.println("Grade Level: " + gradeLevel);
             printTimeTableHeader();
 
             List<Lesson> lessons = lessonController.getLessonsByGradeLevel(gradeLevel);
             if (lessons.isEmpty()) System.out.println("No lessons found for grade level: " + gradeLevel);
 
-            System.out.println("Grade Level: " + gradeLevel);
             printTimeTableBody(lessons);
         } catch (Exception e) {
             System.err.println("Error occurred while displaying timetable by grade level");
@@ -61,12 +61,12 @@ public class TimeTableHandler {
      */
     public void displayTimetableByCoachName(String coachName) {
         try {
+            System.out.println("Coach Name: " + coachName);
             printTimeTableHeader();
 
             List<Lesson> lessons = lessonController.getLessonsByCoach(coachName);
             if (lessons.isEmpty()) System.out.println("No lessons found for coach name: " + coachName);
 
-            System.out.println("Coach Name: " + coachName);
             printTimeTableBody(lessons);
         } catch (Exception e) {
             System.err.println("Error occurred while displaying timetable by coach name");
@@ -79,12 +79,12 @@ public class TimeTableHandler {
      */
     public void displayTimetableByDayOfWeek(DayOfWeek dayOfTheWeek) {
         try {
+            System.out.println("Day of the Week: " + dayOfTheWeek);
             printTimeTableHeader();
 
             List<Lesson> lessons = lessonController.getLessonsByDay(dayOfTheWeek);
             if (lessons.isEmpty()) System.out.println("No lessons found for this Day: " + dayOfTheWeek);
 
-            System.out.println("Day of the Week: " + dayOfTheWeek);
             printTimeTableBody(lessons);
         } catch (Exception e) {
             System.err.println("Error occurred while displaying timetable by day of the week");
@@ -113,7 +113,7 @@ public class TimeTableHandler {
                             lesson.getDate(), lesson.getDayOfTheWeek(), lesson.getCoach(), lesson.getGradeLevel(),
                             lesson.getLessonRef(), lesson.getCapacity(), lesson.getStatus(), lesson.getTimeSlot());
             }
-            System.out.println("--------------------------------------------------------------------------------------------------------------------------------------");
+            System.out.println("------------------------------------------------------------------------------------------------------------------------------------");
         } catch (Exception e) {
             System.err.println("Error occurred while printing timetable body.");
         }

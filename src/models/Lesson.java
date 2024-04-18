@@ -54,8 +54,8 @@ public class Lesson {
     }
 
     public void updateStatus() {
-        if(this.bookings.length == this.capacity) {
-            this.status = "Fully Booked";
+        if(bookings.length == this.capacity) {
+            status = "Fully Booked";
         }
     }
 

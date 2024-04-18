@@ -1,7 +1,6 @@
 package view;
 import appManager.AppManager;
 import utils.TimeTableHandler;
-//import utils.TimeTableHandler;
 
 import java.util.*;
 
@@ -32,11 +31,6 @@ public class HJSSView {
                     5. Monthly coach report
                     6. Register a new learner
                     7. Exit
-                    
-                    1. Register a learner
-                    2. Exit
-                    3. View all learners
-                    4. Display Lessons
                     +-----------------------------------------------------+
                     Enter your choice:
                     """);
@@ -51,15 +45,17 @@ public class HJSSView {
             }
 
             switch (choice) {
-                case 1 -> learnerView.registerLearner();
-                case 2 -> {
+                case 1 -> bookingView.bookLesson();
+                case 2 -> bookingView.cancelAndChangeQuerySelector();
+                case 3 -> bookingView.attendLesson();
+                case 4 -> lessonView.displayLessons();
+                case 5 -> timeTableHandler.displayTimetable();
+                case 6 -> learnerView.registerLearner();
+                case 8 -> learnerView.displayLearner();
+                case 7 -> {
                     System.out.println("Exiting...");
                     System.exit(0);
                 }
-                case 3 -> learnerView.displayLearner();
-                case 4 -> lessonView.displayLessons();
-                case 5 -> timeTableHandler.displayTimetable();
-                case 6 -> bookingView.bookLesson();
                 default -> System.out.println("Invalid choice");
             }
         }
