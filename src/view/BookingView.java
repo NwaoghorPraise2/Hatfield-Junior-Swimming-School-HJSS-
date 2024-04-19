@@ -2,8 +2,11 @@ package view;
 
 import appManager.AppManager;
 import controller.BookingController;
+import controller.LessonController;
+import controller.ReviewController;
 import middlewares.BookingDataInputValidator;
 import middlewares.LearnerInputValidator;
+import models.Lesson;
 import utils.TimeTableHandler;
 
 import java.time.DayOfWeek;
@@ -21,6 +24,8 @@ public class BookingView {
     private final BookingDataInputValidator bookingDataInputValidator = new BookingDataInputValidator();
     private final TimeTableHandler timeTableHandler = new TimeTableHandler();
     private final LearnerInputValidator learnerInputValidator = new LearnerInputValidator();
+    private final LessonController lessonController = new LessonController();
+    private final ReviewController reviewController = new  ReviewController();
 
     /**
      * Initiates the process of booking a lesson.
@@ -207,9 +212,13 @@ public class BookingView {
         try {
             System.out.println("Enter your BookingID:");
             String bookingId = scanner.nextLine();
+            scanner.nextLine();
+
+            displayTimeTable();
 
             System.out.println("Enter your New LessonRef:");
             String newLessonRef = scanner.nextLine();
+            scanner.nextLine();
 
             String result = bookingController.updateBooking(bookingId, newLessonRef);
             System.out.println(result);
@@ -235,8 +244,64 @@ public class BookingView {
         }
     }
 
+    /**
+     * Allows the user to attend a swimming lesson.
+     */
+    public void attendLesson() {
+        try {
+            System.out.println("Welcome to attend your swimming lesson!!!");
+            System.out.println("Enter your BookingID:");
+            String bookingId = scanner.nextLine();
+
+            String result = bookingController.attendLesson(bookingId);
+            if (result.contains("Error")) {
+                System.out.println(result);
+                return; // Exit method if there's an error
+            }
+
+            System.out.println(result);
+            System.out.println();
+
+            Lesson lesson = bookingController.getBookingById(bookingId).getLesson();
+
+            writeReview(lesson);
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Allows the user to write a review for a completed swimming lesson.
+     * @param lesson The lesson for which the review is being written.
+     */
+    private void writeReview(Lesson lesson) {
+        try {
+            System.out.println("|Congratulation on Successful completion of your swimming lesson 👏");
+            System.out.println("|Kindly write your review for the lesson:");
+
+            System.out.println("Enter a short review for the lesson:");
+            String review = scanner.nextLine();
+
+            int rating;
+            do {
+                System.out.println("|Enter your rating for the lesson (1-5):");
+                System.out.println("|1: Very dissatisfied, 2: Dissatisfied, 3: Ok, 4: Satisfied, 5: Very Satisfied");
+                while (!scanner.hasNextInt()) {
+                    System.out.println("Please enter a valid number.");
+                    scanner.next(); // Consume the invalid input
+                }
+                rating = scanner.nextInt();
+                scanner.nextLine(); // Consume the newline character after nextInt()
+            } while (rating < 1 || rating > 5); // Keep asking until a valid rating is provided
+
+            String result = reviewController.addReview(review, rating, lesson);
+            System.out.println(result);
+        } catch (Exception e) {
+            System.out.println("An error occurred: " + e.getMessage());
+        }
+    }
+
     //Todo tomorrow
-//    Finish attend
 //            Finish Data generation
 //    finish Reports
 //            Spend time to refactor where necessary
@@ -244,26 +309,4 @@ public class BookingView {
 //                    Make video
 //                            package software
 //    and any other thing
-
-
-
-//    public void attendLesson() {
-//        System.out.println("Enter your BookingID:");
-//        String bookingId = scanner.nextLine();
-//
-//        String result = bookingController.getLesson(bookingId);
-//        System.out.println(result);
-//    }
-//
-//    public void writeReview () {
-//        System.out.println("Enter your BookingID:");
-//        String bookingId = scanner.nextLine();
-//
-//        System.out.println("Enter your Review:");
-//        String review = scanner.nextLine();
-//
-//        String result = bookingController.writeReview(bookingId, review);
-//        System.out.println(result);
-//    }
-
 }

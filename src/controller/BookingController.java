@@ -175,11 +175,15 @@ public class BookingController {
                 throw new IllegalArgumentException("Invalid booking ID: " + bookingId);
             }
 
+            //user regular expression to ensure shape of input.
+
             // Retrieve booking
             Booking booking = getBookingById(bookingId);
 
             // Retrieve learner
             Learner learner = getLearnerById(booking.getLearnerId());
+
+//            Remember to increase user grade level after attebding take note//
 
             // Mark lesson as attended
             learner.getAttendedLessons().remove(bookingId);
@@ -200,7 +204,7 @@ public class BookingController {
     }
 
     // Helper method to retrieve booking by ID
-    private Booking getBookingById(String bookingId) {
+    public Booking getBookingById(String bookingId) {
         Booking booking = bookingDB.getBookingByBookingId(bookingId);
         if (booking == null) {
             throw new IllegalArgumentException("Booking not found");
