@@ -5,6 +5,8 @@ import models.Booking;
 import models.Learner;
 import models.Lesson;
 
+import java.util.List;
+
 public class BookingController {
     private final BookingDB bookingDB;
     private final LessonController lessonController;
@@ -219,5 +221,13 @@ public class BookingController {
             throw new IllegalArgumentException("Learner not found");
         }
         return learner;
+    }
+
+    public List<Booking> getAllBookings() {
+        return bookingDB.getAllBookings();
+    }
+
+    public List<Booking> getBookingsByLearnerId(String learnerId) {
+        return bookingDB.getBookingsByLearnerId(learnerId);
     }
 }

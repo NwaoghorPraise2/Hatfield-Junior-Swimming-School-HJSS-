@@ -6,11 +6,14 @@ import controller.LessonController;
 import controller.ReviewController;
 import middlewares.BookingDataInputValidator;
 import middlewares.LearnerInputValidator;
+import models.Booking;
+import models.Learner;
 import models.Lesson;
 import utils.TimeTableHandler;
 
 import java.time.DayOfWeek;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -26,6 +29,14 @@ public class BookingView {
     private final LearnerInputValidator learnerInputValidator = new LearnerInputValidator();
     private final LessonController lessonController = new LessonController();
     private final ReviewController reviewController = new  ReviewController();
+
+
+    public void displayBookings() {
+        List<Booking> allBookings = bookingController.getAllBookings();
+        for (Booking booking : allBookings) {
+            System.out.println(booking.toString());
+        }
+    }
 
     /**
      * Initiates the process of booking a lesson.

@@ -16,7 +16,12 @@ public class Booking {
         this.status = "Booked";
     }
 
-    private static String generateBookingID() {
+    //for data generation purpose only
+    public Booking() {
+    }
+
+
+    public static String generateBookingID() {
         String prefix = "SWLES-T";
         String uniqueID = String.format("%s%03d", prefix, counter);
         counter++;
@@ -53,6 +58,17 @@ public class Booking {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Booking{" +
+                "bookingId='" + bookingId + '\'' +
+                ", lesson=" + lesson +
+                ", learnerId='" + learnerId + '\'' +
+                ", status='" + status + '\'' +
+                '}';
     }
 
 }

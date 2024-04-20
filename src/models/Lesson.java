@@ -9,6 +9,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class Lesson {
     private LocalDate date;
@@ -54,10 +55,13 @@ public class Lesson {
     }
 
     public void updateStatus() {
-        if(bookings.length == this.capacity) {
-            status = "Fully Booked";
-        }
+        long nonNullBookingsCount = Arrays.stream(bookings)
+                .filter(Objects::nonNull)
+                .count();
+
+        status = nonNullBookingsCount >= this.capacity ? "Fully Booked" : "Available";
     }
+
 
     public void addBookedLearner(String learnerId) {
         for (int i = 0; i < bookings.length; i++) {

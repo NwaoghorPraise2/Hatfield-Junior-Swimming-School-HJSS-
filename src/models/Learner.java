@@ -124,6 +124,9 @@ public class Learner {
                 ", dateOfBirth=" + dateOfBirth +
                 ", emergencyContact='" + emergencyContact + '\'' +
                 ", currentGradeLevel=" + currentGradeLevel +
+                ", bookedLessons=" + bookedLessons +
+                ", attendedLessons=" + attendedLessons +
+                ", cancelledLessons=" + cancelledLessons +
                 '}';
     }
 }

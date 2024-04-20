@@ -1,12 +1,10 @@
 package controller;
 
 import database.LessonDB;
-import models.Learner;
 import models.Lesson;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 public class LessonController {
@@ -39,5 +37,28 @@ public class LessonController {
 
     public Lesson getLessonByRef(String lessonRef) {
         return lessonDB.getLessonByRef(lessonRef);
+    }
+
+    public String updateLesson(String lessonRef, String [] bookings) {
+        Lesson lessonToUpdate = lessonDB.getLessonByRef(lessonRef);
+        if (lessonToUpdate != null) {
+            lessonToUpdate.setBookings(bookings);
+            lessonToUpdate.updateStatus();
+            return "Lesson updated successfully";
+        } else {
+            return "Lesson with reference " + lessonRef + " not found";
+        }
+    }
+
+    public String getLessonRefByIndex(int index) {
+        return lessonDB.getLessonRefByIndex(index);
+    }
+
+    public String getLessonRefRandomly(){
+        return lessonDB.getLessonRefRandomly();
+    }
+
+    public Lesson getLessonRandomly(){
+        return lessonDB.getLessonRandomly();
     }
 }

@@ -1,8 +1,13 @@
 package utils;
 
 import appManager.AppManager;
+import controller.BookingController;
 import controller.LearnerController;
+import models.Booking;
+import models.Learner;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.time.LocalDate;
 
@@ -14,6 +19,7 @@ public class LearnDataGenerator {
     private static final long MAX_PHONE_NUMBER = 7999999999L;
     // Using Singleton pattern
     private LearnerController learnerController = LearnerController.getInstance();
+    private BookingController bookingController = new BookingController();
     private AppManager appManager;
 
     // Constructor
@@ -61,5 +67,45 @@ public class LearnDataGenerator {
         Random random = new Random();
         long number = MIN_PHONE_NUMBER + (long) (random.nextDouble() * (MAX_PHONE_NUMBER - MIN_PHONE_NUMBER + 1));
         return "+44" + number;
+    }
+
+
+
+    public void updateLearnerData() {
+        // Step 1: Retrieve all learners
+        List<Learner> learners = learnerController.getAllLearners();
+
+        // Step 2: Iterate through each learner
+        for (Learner learner : learners) {
+            String learnerId = learner.getId();
+
+            // Step 3: Retrieve bookings for the current learner
+            List<Booking> bookings = bookingController.getBookingsByLearnerId(learnerId);
+
+            // Step 4: Sort bookings by status
+            List<String> bookedLessons = new ArrayList<>();
+            List<String> attendedLessons = new ArrayList<>();
+            List<String> cancelledLessons = new ArrayList<>();
+
+
+            for (Booking booking : bookings) {
+                switch (booking.getStatus()) {
+                    case "Booked":
+                        bookedLessons.add(booking.getBookingId());
+                        break;
+                    case "Cancelled":
+                        cancelledLessons.add(booking.getBookingId());
+                        break;
+                    case "Attended":
+                        attendedLessons.add(booking.getBookingId());
+                        break;
+                    // Handle other status types if necessary
+                }
+            }
+
+            // Step 5: Update learner data with sorted bookings
+            learnerController.updateLearnerData(learnerId, bookedLessons, attendedLessons, cancelledLessons);
+        }
+
     }
 }

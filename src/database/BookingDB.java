@@ -63,4 +63,8 @@ public class BookingDB {
         return null;
     }
 
+   public List<Booking> getAllBookings(){
+        return bookings;
+   }
+
 }

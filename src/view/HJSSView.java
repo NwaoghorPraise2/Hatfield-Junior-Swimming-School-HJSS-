@@ -52,6 +52,7 @@ public class HJSSView {
                 case 5 -> timeTableHandler.displayTimetable();
                 case 6 -> learnerView.registerLearner();
                 case 8 -> learnerView.displayLearner();
+                case 9 ->bookingView.displayBookings();
                 case 7 -> {
                     System.out.println("Exiting...");
                     System.exit(0);

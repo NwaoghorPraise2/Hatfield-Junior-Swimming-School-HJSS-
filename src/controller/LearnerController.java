@@ -33,4 +33,21 @@ public class LearnerController {
         return learnersDB.getLearner(id);
     }
 
+    public String getRandomLearnerID() {
+        Learner learner = learnersDB.getRandomLearner();
+        return learner.getId();
+    }
+
+    public String updateLearnerData(String learnerId, List<String> bookedLessons, List<String> attendedLesson, List<String> cancelledLesson){
+              Learner learner = learnersDB.getLearner(learnerId);
+              if (learner == null) {
+                  throw new IllegalArgumentException("Learner not found");
+              }
+              learner.setBookedLessons(bookedLessons);
+              learner.setAttendedLessons(attendedLesson);
+              learner.setCancelledLessons(cancelledLesson);
+
+              return "Learner updated successfully!";
+    }
+
 }

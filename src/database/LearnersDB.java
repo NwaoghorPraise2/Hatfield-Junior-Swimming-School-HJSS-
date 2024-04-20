@@ -4,6 +4,7 @@ import models.Learner;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class LearnersDB {
 
@@ -37,5 +38,16 @@ public class LearnersDB {
         }
         return null;
     }
+
+    public Learner getRandomLearner() {
+        if (learners.isEmpty()) {
+            return null; // Return null if the database is empty
+        } else {
+            Random random = new Random();
+            int randomIndex = random.nextInt(learners.size()); // Generate a random index
+            return learners.get(randomIndex); // Return the learner at the random index
+        }
+    }
+
 
 }

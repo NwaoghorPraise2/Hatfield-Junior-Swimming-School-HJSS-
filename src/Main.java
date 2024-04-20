@@ -1,11 +1,13 @@
 import database.LessonDB;
 import appManager.AppManager;
+import utils.BookingsDataGenerator;
 import utils.LearnDataGenerator;
 import utils.LessonDataGenerator;
 import view.HJSSView;
 
 public class Main {
     public static void main(String[] args) {
+        BookingsDataGenerator bookingDataGenerator = new BookingsDataGenerator();
         LearnDataGenerator dataGenerator = new LearnDataGenerator();
         LessonDataGenerator lessonDataGenerator = new LessonDataGenerator();
         AppManager appManager = AppManager.getInstance();
@@ -14,6 +16,9 @@ public class Main {
         System.out.println("Loading data");
         dataGenerator.generateDummyData(20);
         lessonDataGenerator.generateLessonData();
+        lessonDataGenerator.updateLessonData();
+        bookingDataGenerator.generateBookings();
+        dataGenerator.updateLearnerData();
         System.out.println("Data loaded");
         int a = lessonDB.getLessonCount();
         System.out.println("Total:" + a);

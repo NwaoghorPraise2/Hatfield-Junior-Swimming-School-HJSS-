@@ -70,4 +70,20 @@ public class LessonDB {
         public int getLessonCount() {
             return lessons.size();
         }
+
+        public String getLessonRefByIndex(int index) {
+            return lessons.get(index).getLessonRef();
+        }
+
+        public String getLessonRefRandomly(){
+            int index = (int) (Math.random() * lessons.size());
+            return lessons.get(index).getLessonRef();
+        }
+
+        public Lesson getLessonRandomly(){
+            int index = (int) (Math.random() * lessons.size());
+            return lessons.get(index);
+        }
+
+
 }
