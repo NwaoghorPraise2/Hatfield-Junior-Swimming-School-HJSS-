@@ -1,15 +1,26 @@
 package models;
 
+/**
+ * Represents a review of a lesson.
+ */
 public class Review {
     private int rating;
     private String review;
     private Lesson lesson;
 
+    /**
+     * Constructs a Review object with the given attributes.
+     * @param rating The rating of the review.
+     * @param review The review content.
+     * @param lesson The lesson associated with the review.
+     */
     public Review(int rating, String review, Lesson lesson) {
         this.rating = rating;
         this.review = review;
         this.lesson = lesson;
     }
+
+    // Getters and Setters
 
     public Lesson getLesson() {
         return lesson;

@@ -1,7 +1,8 @@
 package models;
 
-import java.util.List;
-
+/**
+ * Represents a booking made by a learner for a lesson.
+ */
 public class Booking {
     private String bookingId;
     private Lesson lesson;
@@ -9,6 +10,11 @@ public class Booking {
     private String status;
     private static int counter = 1;
 
+    /**
+     * Constructs a Booking object.
+     * @param learnerId The ID of the learner making the booking.
+     * @param lesson The lesson being booked.
+     */
     public Booking(String  learnerId, Lesson lesson) {
         this.bookingId = generateBookingID();
         this.lesson = lesson;
@@ -16,11 +22,14 @@ public class Booking {
         this.status = "Booked";
     }
 
-    //for data generation purpose only
+    // Empty constructor for data generation purpose only
     public Booking() {
     }
 
-
+    /**
+     * Generates a unique booking ID.
+     * @return The generated booking ID.
+     */
     public static String generateBookingID() {
         String prefix = "SWLES-T";
         String uniqueID = String.format("%s%03d", prefix, counter);
@@ -60,7 +69,6 @@ public class Booking {
         this.status = status;
     }
 
-
     @Override
     public String toString() {
         return "Booking{" +
@@ -70,5 +78,4 @@ public class Booking {
                 ", status='" + status + '\'' +
                 '}';
     }
-
 }

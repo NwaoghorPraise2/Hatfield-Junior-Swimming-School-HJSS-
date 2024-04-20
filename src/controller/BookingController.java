@@ -7,6 +7,9 @@ import models.Lesson;
 
 import java.util.List;
 
+/**
+ * Controller class responsible for managing bookings.
+ */
 public class BookingController {
     private final BookingDB bookingDB;
     private final LessonController lessonController;
@@ -19,7 +22,6 @@ public class BookingController {
 
     /**
      * Constructs a BookingController instance.
-     *
      */
     public BookingController() {
         this.bookingDB = BookingDB.getInstance();
@@ -34,7 +36,7 @@ public class BookingController {
      * @param lessonRef The reference of the lesson.
      * @return A message indicating the result of the booking attempt.
      * @throws IllegalArgumentException if learnerId or lessonRef is null, or if the learner or lesson is not found.
-     * @throws IllegalStateException if the lesson is fully booked, learner has already booked this lesson, or learner is not eligible to book this lesson.
+     * @throws IllegalStateException    if the lesson is fully booked, learner has already booked this lesson, or learner is not eligible to book this lesson.
      */
     public String createBooking(String learnerId, String lessonRef) {
         try {
@@ -82,7 +84,7 @@ public class BookingController {
      * @param lessonRef The reference to the new lesson.
      * @return A string indicating the result of the update operation.
      * @throws IllegalArgumentException if bookingId or lessonRef is null, or if the booking, learner associated with the booking, or lesson is not found.
-     * @throws IllegalStateException if the booking status is not "Booked", or if the new lesson is fully booked.
+     * @throws IllegalStateException    if the booking status is not "Booked", or if the new lesson is fully booked.
      */
     public String updateBooking(String bookingId, String lessonRef) {
         try {
@@ -177,15 +179,11 @@ public class BookingController {
                 throw new IllegalArgumentException("Invalid booking ID: " + bookingId);
             }
 
-            //user regular expression to ensure shape of input.
-
             // Retrieve booking
             Booking booking = getBookingById(bookingId);
 
             // Retrieve learner
             Learner learner = getLearnerById(booking.getLearnerId());
-
-//            Remember to increase user grade level after attebding take note//
 
             // Mark lesson as attended
             learner.getAttendedLessons().remove(bookingId);
@@ -223,10 +221,21 @@ public class BookingController {
         return learner;
     }
 
+    /**
+     * Retrieves all bookings stored in the database.
+     *
+     * @return A list of all bookings.
+     */
     public List<Booking> getAllBookings() {
         return bookingDB.getAllBookings();
     }
 
+    /**
+     * Retrieves all bookings associated with a specific learner.
+     *
+     * @param learnerId The ID of the learner.
+     * @return A list of bookings associated with the learner.
+     */
     public List<Booking> getBookingsByLearnerId(String learnerId) {
         return bookingDB.getBookingsByLearnerId(learnerId);
     }

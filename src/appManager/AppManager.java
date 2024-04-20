@@ -9,6 +9,9 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.Random;
 
+/**
+ * Singleton class responsible for managing the application.
+ */
 public class AppManager {
     private static AppManager instance;
     private final String[] COACHES = {"John", "Emily", "Michael", "Sarah", "David", "Jessica", "Christopher", "Jennifer"};
@@ -20,7 +23,10 @@ public class AppManager {
     private AppManager() {
     }
 
-    // Method to get the singleton instance
+    /**
+     * Retrieves the singleton instance of the AppManager class.
+     * @return The singleton instance of AppManager.
+     */
     public static AppManager getInstance() {
         if (instance == null) {
             instance = new AppManager();
@@ -28,7 +34,11 @@ public class AppManager {
         return instance;
     }
 
-
+    /**
+     * Sets the start time for a lesson based on the given day of the week.
+     * @param dayOfWeek The day of the week for which to set the start time.
+     * @return The start time for the lesson.
+     */
     public LocalTime setStartTime(DayOfWeek dayOfWeek) {
         switch (dayOfWeek) {
             case MONDAY:
@@ -42,14 +52,26 @@ public class AppManager {
         }
     }
 
+    /**
+     * Assigns a coach randomly from the available list of coaches.
+     * @return The name of the assigned coach.
+     */
     public String assignCoach() {
         return COACHES[random.nextInt(COACHES.length)]; // Randomly select a coach from the array
     }
 
+    /**
+     * Sets the capacity for a lesson.
+     * @return The capacity for the lesson.
+     */
     public int setLessonCapacity() {
         return 4; // Return a constant value for lesson capacity
     }
 
+    /**
+     * Assigns a grade level randomly between 1 and 5.
+     * @return The assigned grade level.
+     */
     public int assignGradeLevel() {
         return random.nextInt(5) + 1; // Randomly assign a grade level between 1 and 5
     }

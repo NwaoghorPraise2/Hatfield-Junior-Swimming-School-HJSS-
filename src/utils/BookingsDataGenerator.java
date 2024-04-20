@@ -1,23 +1,32 @@
 package utils;
+
 import controller.LessonController;
 import database.BookingDB;
 import models.Booking;
 import models.Lesson;
 
-import java.util.List;
 import java.util.Random;
 
+/**
+ * Utility class to generate random booking data.
+ */
 public class BookingsDataGenerator {
     private static BookingDB bookingDB;
     private static Random random;
     private LessonController lessonController;
 
+    /**
+     * Constructs a BookingsDataGenerator instance.
+     */
     public BookingsDataGenerator() {
         this.bookingDB = BookingDB.getInstance();
         this.random = new Random();
         this.lessonController = new LessonController();
     }
 
+    /**
+     * Generates random bookings and adds them to the database.
+     */
     public void generateBookings() {
         for (int i = 0; i < 60; i++) {
             Booking booking = createRandomBooking();
@@ -25,7 +34,10 @@ public class BookingsDataGenerator {
         }
     }
 
-
+    /**
+     * Creates a random booking.
+     * @return The randomly generated booking.
+     */
     private Booking createRandomBooking() {
         String[] statuses = {"Booked", "Cancelled", "Attended"};
         int randomStatusIndex = random.nextInt(statuses.length);
@@ -47,6 +59,4 @@ public class BookingsDataGenerator {
 
         return booking;
     }
-
-
 }
