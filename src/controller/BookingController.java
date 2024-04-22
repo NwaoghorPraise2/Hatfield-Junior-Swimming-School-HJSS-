@@ -74,8 +74,11 @@ public class BookingController {
             return "Booking Successful!!! Take your booking code: " + booking.getBookingId();
         } catch (IllegalArgumentException | IllegalStateException e) {
             return handleException(e);
+        } catch (Exception e) {
+            return handleUnknownException(e);
         }
     }
+
 
     /**
      * Updates the booking with the specified booking ID.
@@ -127,6 +130,8 @@ public class BookingController {
             return "Booking updated successfully";
         } catch (IllegalArgumentException | IllegalStateException e) {
             return handleException(e);
+        } catch (Exception e) {
+            return handleUnknownException(e);
         }
     }
 
@@ -162,6 +167,8 @@ public class BookingController {
             return "Booking cancelled successfully";
         } catch (IllegalArgumentException e) {
             return handleException(e);
+        } catch (Exception e) {
+            return handleUnknownException(e);
         }
     }
 
@@ -201,12 +208,19 @@ public class BookingController {
             return "Lesson attended successfully";
         } catch (IllegalArgumentException e) {
             return handleException(e);
+        } catch (Exception e) {
+            return handleUnknownException(e);
         }
     }
 
     // Helper method to handle exceptions
     private String handleException(Exception e) {
         return "Failed: " + e.getMessage();
+    }
+
+    // Helper method to handle unknown exceptions
+    private String handleUnknownException(Exception e) {
+        return "An unexpected error occurred: " + e.getMessage();
     }
 
     // Helper method to retrieve booking by ID
