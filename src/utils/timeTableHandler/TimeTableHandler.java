@@ -1,4 +1,4 @@
-package utils;
+package utils.timeTableHandler;
 
 import controller.LessonController;
 import models.Lesson;

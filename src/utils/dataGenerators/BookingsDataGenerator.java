@@ -1,4 +1,4 @@
-package utils;
+package utils.dataGenerators;
 
 import controller.LessonController;
 import database.BookingDB;
@@ -28,7 +28,7 @@ public class BookingsDataGenerator {
      * Generates random bookings and adds them to the database.
      */
     public void generateBookings() {
-        for (int i = 0; i < 60; i++) {
+        for (int i = 0; i < 100; i++) {
             Booking booking = createRandomBooking();
             bookingDB.addBooking(booking);
         }

@@ -182,12 +182,18 @@ public class BookingController {
             // Retrieve booking
             Booking booking = getBookingById(bookingId);
 
+            //checking booking status
+            if (!booking.getStatus().equals(BOOKED_STATUS)) {
+                throw new IllegalArgumentException("Invalid booking - You have " + booking.getStatus() + "this Bookings");
+            }
+
             // Retrieve learner
             Learner learner = getLearnerById(booking.getLearnerId());
 
             // Mark lesson as attended
             learner.getAttendedLessons().remove(bookingId);
             learner.getAttendedLessons().add(bookingId);
+            learner.moveLearnerToNextGradeLevel();
 
             // Update booking status
             booking.setStatus(ATTENDED_STATUS);
@@ -238,5 +244,9 @@ public class BookingController {
      */
     public List<Booking> getBookingsByLearnerId(String learnerId) {
         return bookingDB.getBookingsByLearnerId(learnerId);
+    }
+
+    public List<Booking> getBookingsByStatus(String status) {
+        return bookingDB.getBookingsByStatus(status);
     }
 }

@@ -104,6 +104,7 @@ public class Lesson {
         }
     }
 
+
     // Getters and Setters
 
     public void setBookings(String[] bookings) {

@@ -7,9 +7,8 @@ import controller.ReviewController;
 import middlewares.BookingDataInputValidator;
 import middlewares.LearnerInputValidator;
 import models.Booking;
-import models.Learner;
 import models.Lesson;
-import utils.TimeTableHandler;
+import utils.timeTableHandler.TimeTableHandler;
 
 import java.time.DayOfWeek;
 import java.util.InputMismatchException;
@@ -265,7 +264,7 @@ public class BookingView {
             String bookingId = scanner.nextLine();
 
             String result = bookingController.attendLesson(bookingId);
-            if (result.contains("Error")) {
+            if (result.contains("Invalid")) {
                 System.out.println(result);
                 return; // Exit method if there's an error
             }
@@ -273,9 +272,11 @@ public class BookingView {
             System.out.println(result);
             System.out.println();
 
-            Lesson lesson = bookingController.getBookingById(bookingId).getLesson();
+            Booking booking = bookingController.getBookingById(bookingId);
+            Lesson lesson = booking.getLesson();
+            String learnerId = booking.getLearnerId();
 
-            writeReview(lesson);
+            writeReview(lesson, learnerId);
         } catch (Exception e) {
             System.out.println("An error occurred: " + e.getMessage());
         }
@@ -285,7 +286,7 @@ public class BookingView {
      * Allows the user to write a review for a completed swimming lesson.
      * @param lesson The lesson for which the review is being written.
      */
-    private void writeReview(Lesson lesson) {
+    private void writeReview(Lesson lesson, String learnerId) {
         try {
             System.out.println("|Congratulation on Successful completion of your swimming lesson 👏");
             System.out.println("|Kindly write your review for the lesson:");
@@ -305,7 +306,7 @@ public class BookingView {
                 scanner.nextLine(); // Consume the newline character after nextInt()
             } while (rating < 1 || rating > 5); // Keep asking until a valid rating is provided
 
-            String result = reviewController.addReview(review, rating, lesson);
+            String result = reviewController.addReview(review, rating, lesson, learnerId);
             System.out.println(result);
         } catch (Exception e) {
             System.out.println("An error occurred: " + e.getMessage());

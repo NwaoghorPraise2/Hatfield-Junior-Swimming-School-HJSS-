@@ -56,6 +56,13 @@ public class Learner {
         return uniqueID;
     }
 
+    public void moveLearnerToNextGradeLevel() {
+        if (currentGradeLevel < 5) {
+            currentGradeLevel++;
+        }
+    }
+
+
     /**
      * Gets the ID of the learner.
      * @return The ID of the learner.

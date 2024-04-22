@@ -15,6 +15,4 @@ public class LessonView {
             System.out.println(lesson.toString());
         }
     }
-
-
 }

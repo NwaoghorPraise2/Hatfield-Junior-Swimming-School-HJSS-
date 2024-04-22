@@ -1,4 +1,4 @@
-package utils;
+package utils.dataGenerators;
 
 import appManager.AppManager;
 import controller.BookingController;
