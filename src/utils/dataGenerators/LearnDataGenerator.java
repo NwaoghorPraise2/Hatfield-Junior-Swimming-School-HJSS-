@@ -21,7 +21,7 @@ public class LearnDataGenerator {
     private static final long MIN_PHONE_NUMBER = 7000000000L;
     private static final long MAX_PHONE_NUMBER = 7999999999L;
     // Using Singleton pattern
-    private LearnerController learnerController = LearnerController.getInstance();
+    private LearnerController learnerController = new LearnerController();
     private BookingController bookingController = new BookingController();
     private AppManager appManager;
 

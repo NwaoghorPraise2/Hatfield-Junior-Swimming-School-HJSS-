@@ -222,13 +222,11 @@ public class BookingView {
         try {
             System.out.println("Enter your BookingID:");
             String bookingId = scanner.nextLine();
-            scanner.nextLine();
 
             displayTimeTable();
 
             System.out.println("Enter your New LessonRef:");
             String newLessonRef = scanner.nextLine();
-            scanner.nextLine();
 
             String result = bookingController.updateBooking(bookingId, newLessonRef);
             System.out.println(result);
@@ -312,13 +310,4 @@ public class BookingView {
             System.out.println("An error occurred: " + e.getMessage());
         }
     }
-
-    //Todo tomorrow
-//            Finish Data generation
-//    finish Reports
-//            Spend time to refactor where necessary
-//            Finish report
-//                    Make video
-//                            package software
-//    and any other thing
 }

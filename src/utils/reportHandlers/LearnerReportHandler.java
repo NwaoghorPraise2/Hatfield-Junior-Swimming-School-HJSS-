@@ -24,7 +24,7 @@ public class LearnerReportHandler {
      */
     public LearnerReportHandler() {
         this.bookingController = new BookingController();
-        this.learnerController = LearnerController.getInstance();
+        this.learnerController = new LearnerController();
     }
 
     /**

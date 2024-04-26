@@ -2,8 +2,12 @@ package appManager;
 
 import controller.LearnerController;
 import controller.LessonController;
-import models.Learner;
-import models.Lesson;
+import database.LessonDB;
+import utils.dataGenerators.BookingsDataGenerator;
+import utils.dataGenerators.LearnDataGenerator;
+import utils.dataGenerators.LessonDataGenerator;
+import utils.dataGenerators.ReviewDataGenerator;
+import view.HJSSView;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
@@ -16,7 +20,7 @@ public class AppManager {
     private static AppManager instance;
     private final String[] COACHES = {"John", "Emily", "Michael", "Sarah", "David", "Jessica", "Christopher", "Jennifer"};
     private final Random random = new Random();
-    private LearnerController learnerController = LearnerController.getInstance();
+    private LearnerController learnerController = new LearnerController();
     private LessonController lessonController = LessonController.getInstance();
 
     // Private constructor to prevent instantiation from outside
@@ -50,6 +54,22 @@ public class AppManager {
             default:
                 return LocalTime.of(0, 0); // Default start time
         }
+    }
+
+    public void startApp(){
+        BookingsDataGenerator bookingDataGenerator = new BookingsDataGenerator();
+        LearnDataGenerator dataGenerator = new LearnDataGenerator();
+        LessonDataGenerator lessonDataGenerator = new LessonDataGenerator();
+        ReviewDataGenerator reviewDataGenerator = new ReviewDataGenerator();
+        dataGenerator.generateDummyData(20);
+        lessonDataGenerator.generateLessonData();
+        lessonDataGenerator.updateLessonData();
+        bookingDataGenerator.generateBookings();
+        dataGenerator.updateLearnerData();
+        reviewDataGenerator.generateReviewsForAttendedBookings();
+        System.out.println("Loading.............................");
+        System.out.println("System initialised!!!!!!!!!!!!!!!!!!!");
+        new HJSSView();
     }
 
     /**

@@ -12,8 +12,7 @@ public class HJSSView {
     private final LessonView lessonView = new LessonView();
     private final BookingView bookingView = new BookingView();
     private final ReviewView reviewView = new ReviewView();
-//    private final ReportHandler reportHandler = new ReportHandler();
-    private final LearnerReportHandler reportHandler = new LearnerReportHandler();
+    private final LearnerReportHandler learnerReportHandler = new LearnerReportHandler();
     private final CoachReportHandler coachReportHandler = new CoachReportHandler();
 
     private final TimeTableHandler timeTableHandler = new TimeTableHandler();
@@ -23,6 +22,31 @@ public class HJSSView {
     public HJSSView() {
         start();
     }
+
+
+    public void coachDataGenerator(){
+            System.out.println("Enter the month (1-12) for which you want to generate the coach report:");
+            int month = scanner.nextInt();
+
+            if (month < 1 || month > 12) {
+                System.out.println("Invalid month entered. Month must be between 1 and 12.");
+            } else {
+                coachReportHandler.generateCoachReport(month);
+            }
+        }
+
+    public void learnerDataGenerator(){
+        System.out.println("Enter the month (1-12) for which you want to generate the coach report:");
+        int month = scanner.nextInt();
+
+        if (month < 1 || month > 12) {
+            System.out.println("Invalid month entered. Month must be between 1 and 12.");
+        } else {
+            learnerReportHandler.generateLearnerReport(month);
+        }
+    }
+
+
 
     public void start() {
 
@@ -54,14 +78,13 @@ public class HJSSView {
                 case 1 -> bookingView.bookLesson();
                 case 2 -> bookingView.cancelAndChangeQuerySelector();
                 case 3 -> bookingView.attendLesson();
-                case 4 -> lessonView.displayLessons();
-                case 5 -> timeTableHandler.displayTimetable();
+                case 4 -> learnerDataGenerator();
+                case 5 -> coachDataGenerator();
                 case 6 -> learnerView.registerLearner();
                 case 8 -> learnerView.displayLearner();
                 case 9 -> bookingView.displayBookings();
                 case 10 -> reviewView.displayReviews();
-                case 11 -> reportHandler.generateLearnerReport(3);
-                case 12 -> coachReportHandler.generateCoachReport(3);
+                case 13 -> lessonView.displayLessons();
                 case 7 -> {
                     System.out.println("Exiting...");
                     System.exit(0);

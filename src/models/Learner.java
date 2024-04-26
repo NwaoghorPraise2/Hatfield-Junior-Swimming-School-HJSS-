@@ -62,6 +62,40 @@ public class Learner {
         }
     }
 
+    /**
+     * Books a lesson for the learner.
+     * @param lessonId The ID of the lesson to be booked.
+     */
+    public void addBookedLesson(String lessonId) {
+        bookedLessons.add(lessonId);
+    }
+
+    /**
+     * Marks a lesson as attended by the learner.
+     * @param lessonId The ID of the lesson attended.
+     */
+    public void addAttendLesson(String lessonId) {
+        if (bookedLessons.contains(lessonId)) {
+            attendedLessons.add(lessonId);
+            bookedLessons.remove(lessonId); // Remove from booked lessons since it's attended
+        } else {
+            System.out.println("Error: This lesson was not booked.");
+        }
+    }
+
+    /**
+     * Cancels a previously booked lesson.
+     * @param lessonId The ID of the lesson to be cancelled.
+     */
+    public void cancelLesson(String lessonId) {
+        if (bookedLessons.contains(lessonId)) {
+            cancelledLessons.add(lessonId);
+            bookedLessons.remove(lessonId); // Remove from booked lessons since it's cancelled
+        } else {
+            System.out.println("Error: This lesson was not booked.");
+        }
+    }
+
 
     /**
      * Gets the ID of the learner.

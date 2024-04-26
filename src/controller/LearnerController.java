@@ -9,18 +9,7 @@ import java.util.List;
  * Controller class responsible for managing learners.
  */
 public class LearnerController {
-    private static final LearnerController INSTANCE = new LearnerController();
-    private LearnersDB learnersDB;
-
-    // Private constructor to prevent external instantiation
-    private LearnerController() {
-        learnersDB = LearnersDB.getInstance();
-    }
-
-    // Access point to get the singleton instance
-    public static LearnerController getInstance() {
-        return INSTANCE;
-    }
+    private LearnersDB learnersDB = LearnersDB.getInstance();
 
     /**
      * Registers a new learner.
@@ -34,7 +23,7 @@ public class LearnerController {
     public String registerLearner(String name, LocalDate dateOfBirth, String gender, String emergencyContact, int currentGradeLevel) {
         Learner learner = new Learner(name, gender, dateOfBirth, emergencyContact, currentGradeLevel);
         learnersDB.addLearner(learner);
-        return "Learner registered successfully!";
+        return "Learner registered successfully! " + "Take your Username: " + learner.getId();
     }
 
     /**

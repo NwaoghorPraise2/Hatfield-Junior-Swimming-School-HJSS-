@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class LearnerView {
-    private final Scanner scanner = new Scanner(System.in);
-    private LearnerController learnerController = LearnerController.getInstance();
+    private final static Scanner scanner = new Scanner(System.in);
+    private LearnerController learnerController = new LearnerController();
     private final LearnerInputValidator learnerInputValidator = new LearnerInputValidator();
 
     public void displayLearner() {
@@ -20,94 +20,64 @@ public class LearnerView {
     }
 
 
-    public void registerLearner () {
+//    public void registerLearner() {
+//    }
+     public void registerLearner() {
+        System.out.println("Register with us today. Follow the instructions!!!");
 
-            //refactor this code
-            String name = null;
-            String gender = null;
-            LocalDate dateOfBirth = null;
-            String emergencyContactNumber = null;
-            int gradeLevel = 0;
+        String name = getInput("Enter your name:", learnerInputValidator::isValidName);
+        String gender = getInput("Enter your gender (Either Male or Female or others):", learnerInputValidator::isValidGender);
+        LocalDate dateOfBirth = getInput("Please enter your date of birth (YYYY-MM-DD):", LocalDate::parse, learnerInputValidator::isValidDateOfBirth);
+        String emergencyContactNumber = getInput("Enter your Emergency Contact number (+447917490416):", learnerInputValidator::isValidUKPhoneNumber);
+        int gradeLevel = getInput("Enter your Swimming Grade Level (1, 2, 3, 4, or 5):", Integer::parseInt, learnerInputValidator::isValidGradeLevel);
 
-            while (true) {
-                try {
-                    System.out.println("Enter your name:");
-                    name = scanner.nextLine();
-                    learnerInputValidator.isValidName(name);
-                    break; // If name is valid, exit the loop
-                } catch (IllegalArgumentException e) {
-                    System.out.println(e.getMessage());
-                } catch (Exception e) {
-                    System.out.println("Invalid input. Please try again.");
-                    scanner.nextLine(); // Consume invalid input
+        String result = learnerController.registerLearner(name, dateOfBirth, gender, emergencyContactNumber, gradeLevel);
+        System.out.println(result);
+        System.out.println();
+    }
+
+    private static <T> T getInput(String prompt, InputParser<T> parser, InputValidator<T> validator) {
+        while (true) {
+            try {
+                System.out.println(prompt);
+                String input = scanner.nextLine();
+                if (parser != null) {
+                    T parsedInput = parser.parse(input);
+                    if (validator != null) {
+                        validator.validate(parsedInput);
+                    }
+                    return parsedInput;
+                } else if (validator != null) {
+                    validator.validate((T) input);
+                    return (T) input;
                 }
+            } catch (ValidationException e) {
+                System.out.println(e.getMessage());
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please try again.");
+                scanner.nextLine(); // Consume invalid input
             }
+        }
+    }
 
-            // Prompt for gender and validate
-            while (true) {
-                try {
-                    System.out.println("Enter your gender (Either Male or Female or others):");
-                    gender = scanner.nextLine();
-                    learnerInputValidator.isValidGender(gender);
-                    break; // If gender is valid, exit the loop
-                } catch (IllegalArgumentException e) {
-                    System.out.println(e.getMessage());
-                } catch (Exception e) {
-                    System.out.println("Invalid input. Please try again.");
-                    scanner.nextLine(); // Consume invalid input
-                }
-            }
+    private static <T> T getInput(String prompt, InputValidator<T> validator) {
+        return getInput(prompt, null, validator);
+    }
 
-            // Prompt for date of birth and validate
-            while (true) {
-                try {
-                    System.out.println("Please enter your date of birth (YYYY-MM-DD):");
-                    dateOfBirth = LocalDate.parse(scanner.nextLine());
-                    learnerInputValidator.isValidDateOfBirth(dateOfBirth);
-                    break; // If date of birth is valid, exit the loop
-                } catch (IllegalArgumentException e) {
-                    System.out.println(e.getMessage());
-                } catch (Exception e) {
-                    System.out.println("Invalid input. Please try again.");
-                    scanner.nextLine(); // Consume invalid input
-                }
-            }
+    interface InputParser<T> {
+        T parse(String input) throws Exception;
+    }
 
-            // Prompt for emergency contact number and validate
-            while (true) {
-                try {
-                    System.out.println("Enter your Emergency Contact number (+447917490416):");
-                    emergencyContactNumber = scanner.nextLine();
-                    learnerInputValidator.isValidUKPhoneNumber(emergencyContactNumber);
-                    break; // If emergency contact number is valid, exit the loop
-                } catch (IllegalArgumentException e) {
-                    System.out.println(e.getMessage());
-                } catch (Exception e) {
-                    System.out.println("Invalid input. Please try again.");
-                    scanner.nextLine(); // Consume invalid input
-                }
-            }
+    interface InputValidator<T> {
+        void validate(T input) throws ValidationException;
+    }
 
-            // Prompt for swimming grade level and validate
-            while (true) {
-                try {
-                    System.out.println("Enter your Swimming Grade Level (1, 2, 3, 4, or 5):");
-                    gradeLevel = Integer.parseInt(scanner.nextLine());
-                    learnerInputValidator.isValidGradeLevel(gradeLevel);
-                    break; // If grade level is valid, exit the loop
-                } catch (IllegalArgumentException e) {
-                    System.out.println(e.getMessage());
-                } catch (Exception e) {
-                    System.out.println("Invalid input. Please try again.");
-                    scanner.nextLine(); // Consume invalid input
-                }
-            }
-
-            // Register the learner once all inputs are valid
-            String result = learnerController.registerLearner(name, dateOfBirth, gender, emergencyContactNumber, gradeLevel);
-            System.out.println(result);
-            System.out.println();
+    static class ValidationException extends Exception {
+        public ValidationException(String message) {
+            super(message);
+        }
     }
 }
+
 
 

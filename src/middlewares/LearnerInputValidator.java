@@ -23,6 +23,7 @@ public class LearnerInputValidator {
      * @throws IllegalArgumentException If the gender is null, empty, or not one of "male", "female", or "others".
      */
     public void isValidGender(String gender) {
+        gender.toLowerCase();
         if (gender == null || gender.isEmpty() || !gender.matches("^(male|female|others)$")) {
             throw new IllegalArgumentException("Invalid gender");
         }
@@ -34,7 +35,7 @@ public class LearnerInputValidator {
      * @throws IllegalArgumentException If the date of birth is null, in the future, or if age is restricted.
      */
     public void isValidDateOfBirth(LocalDate dateOfBirth) {
-        if (dateOfBirth == null || dateOfBirth.isAfter(LocalDate.now().minusYears(5)) || dateOfBirth.isBefore(LocalDate.now().minusYears(10))) {
+        if (dateOfBirth == null || dateOfBirth.isAfter(LocalDate.now().minusYears(4)) || dateOfBirth.isBefore(LocalDate.now().minusYears(10))) {
             throw new IllegalArgumentException("Invalid date of birth");
         }
     }

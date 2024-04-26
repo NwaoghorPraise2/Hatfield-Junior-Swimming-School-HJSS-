@@ -26,7 +26,7 @@ public class BookingController {
     public BookingController() {
         this.bookingDB = BookingDB.getInstance();
         this.lessonController = new LessonController();
-        this.learnerController = LearnerController.getInstance();
+        this.learnerController = new LearnerController();
     }
 
     /**
@@ -45,39 +45,59 @@ public class BookingController {
                 throw new IllegalArgumentException("Invalid input: learnerId or lessonRef is null");
             }
 
+            // Retrieve lesson
             Lesson lesson = lessonController.getLessonByRef(lessonRef);
             if (lesson == null) {
-                throw new IllegalArgumentException("Lesson not found");
+                throw new IllegalArgumentException("Lesson not found for reference: " + lessonRef);
             }
             if (!lesson.isAvailable()) {
                 throw new IllegalStateException("Lesson is fully booked");
             }
 
+            // Retrieve learner
             Learner learner = learnerController.getLearnerById(learnerId);
             if (learner == null) {
-                throw new IllegalArgumentException("Learner not found");
+                throw new IllegalArgumentException("Learner not found with ID: " + learnerId);
             }
-            if (learner.getBookedLessons().contains(lessonRef)) {
+
+            // Check if the learner has already booked the lesson
+            if (learnerHasAlreadyBookedLesson(learner, lessonRef)) {
                 throw new IllegalStateException("Learner has already booked this lesson");
             }
-            if (lesson.getGradeLevel() > learner.getCurrentGradeLevel() + 1 || lesson.getGradeLevel() < learner.getCurrentGradeLevel()) {
+
+            // Check if the learner is eligible for booking the lesson based on grade level
+            if (!learnerIsEligibleForLesson(learner, lesson)) {
                 throw new IllegalStateException("Learner is not eligible to book this lesson");
             }
 
+            // Update lesson and learner
             lesson.addBookedLearner(learnerId);
-
             Booking booking = new Booking(learnerId, lesson);
             bookingDB.addBooking(booking);
+            learner.addBookedLesson(lessonRef);
 
-            learner.getBookedLessons().add(booking.getBookingId());
-
+            // Return success message
             return "Booking Successful!!! Take your booking code: " + booking.getBookingId();
         } catch (IllegalArgumentException | IllegalStateException e) {
+            // Handle known exceptions
             return handleException(e);
         } catch (Exception e) {
+            // Handle unknown exceptions
             return handleUnknownException(e);
         }
     }
+
+    // Check if the learner has already booked the lesson
+    private boolean learnerHasAlreadyBookedLesson(Learner learner, String lessonRef) {
+        return learner.getBookedLessons().contains(lessonRef);
+    }
+
+    // Check if the learner is eligible for booking the lesson based on grade level
+    private boolean learnerIsEligibleForLesson(Learner learner, Lesson lesson) {
+        return lesson.getGradeLevel() <= learner.getCurrentGradeLevel() + 1 &&
+                lesson.getGradeLevel() >= learner.getCurrentGradeLevel();
+    }
+
 
 
     /**

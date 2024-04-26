@@ -35,7 +35,7 @@ public class LessonDataGenerator {
         learnDataGenerator = new LearnDataGenerator();
         appManager = AppManager.getInstance();
         lessonController = LessonController.getInstance();
-        learnerController = LearnerController.getInstance();
+        learnerController = new LearnerController();
         bookingController = new BookingController();
     }
 
