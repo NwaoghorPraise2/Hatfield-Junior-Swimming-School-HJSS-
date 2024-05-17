@@ -51,7 +51,7 @@ public class HJSSView {
     public void start() {
 
         while (true) {
-            System.out.println("""
+            System.out.println('
                     Welcome to Hatfield Junior School System
                     +-----------------------------------------------------+
                     1. Book a swimming lesson
@@ -63,7 +63,7 @@ public class HJSSView {
                     7. Exit
                     +-----------------------------------------------------+
                     Enter your choice:
-                    """);
+                    ');
             int choice;
             try {
                 choice = scanner.nextInt();
@@ -75,21 +75,21 @@ public class HJSSView {
             }
 
             switch (choice) {
-                case 1 -> bookingView.bookLesson();
-                case 2 -> bookingView.cancelAndChangeQuerySelector();
-                case 3 -> bookingView.attendLesson();
-                case 4 -> learnerDataGenerator();
-                case 5 -> coachDataGenerator();
-                case 6 -> learnerView.registerLearner();
-                case 8 -> learnerView.displayLearner();
-                case 9 -> bookingView.displayBookings();
-                case 10 -> reviewView.displayReviews();
-                case 13 -> lessonView.displayLessons();
-                case 7 -> {
+                case 1 : bookingView.bookLesson();
+                case 2 : bookingView.cancelAndChangeQuerySelector();
+                case 3 : bookingView.attendLesson();
+                case 4 : learnerDataGenerator();
+                case 5 : coachDataGenerator();
+                case 6 : learnerView.registerLearner();
+                case 8 : learnerView.displayLearner();
+                case 9 : bookingView.displayBookings();
+                case 10 : reviewView.displayReviews();
+                case 13 : lessonView.displayLessons();
+                case 7 : {
                     System.out.println("Exiting...");
                     System.exit(0);
                 }
-                default -> System.out.println("Invalid choice");
+                default : System.out.println("Invalid choice");
             }
         }
     }

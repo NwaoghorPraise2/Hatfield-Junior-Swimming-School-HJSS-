@@ -5,7 +5,6 @@ import models.Lesson;
 import models.Review;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
 /**
  * Controller class responsible for managing reviews.

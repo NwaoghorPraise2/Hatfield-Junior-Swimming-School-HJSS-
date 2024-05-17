@@ -1,8 +1,5 @@
 package appManager;
 
-import controller.LearnerController;
-import controller.LessonController;
-import database.LessonDB;
 import utils.dataGenerators.BookingsDataGenerator;
 import utils.dataGenerators.LearnDataGenerator;
 import utils.dataGenerators.LessonDataGenerator;
@@ -19,9 +16,7 @@ import java.util.Random;
 public class AppManager {
     private static AppManager instance;
     private final String[] COACHES = {"John", "Emily", "Michael", "Sarah", "David", "Jessica", "Christopher", "Jennifer"};
-    private final Random random = new Random();
-    private LearnerController learnerController = new LearnerController();
-    private LessonController lessonController = LessonController.getInstance();
+    private final Random random = new Random(); 
 
     // Private constructor to prevent instantiation from outside
     private AppManager() {
